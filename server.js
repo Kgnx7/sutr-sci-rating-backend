@@ -1,22 +1,35 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("passport");
+require("dotenv").config();
 
 const app = express();
-
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: process.env.ORIGIN || "*",
 };
 
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+const db = require("./app/models");
+db.sequelize.sync({ forse: true });
+
+app.set('trust proxy', 1);
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+app.use(passport.initialize());
+
+require('./app/config/passport');
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
