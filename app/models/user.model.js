@@ -13,14 +13,13 @@ module.exports = (sequelize, Sequelize) => {
         },
         unique: true,
       },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      access_group: {
+        type: DataTypes.STRING,
+      }
     },
     {
       indexes: [

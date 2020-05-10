@@ -1,5 +1,19 @@
 const db = require("../models");
 const User = db.users;
+const Group = db.groups;
+
+exports.findAll = (req, res) => {
+
+  User.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Не удалось найти пользователей!",
+      });
+    });
+};
 
 exports.findOne = (req, res) => {
   const id = req.params.id;
@@ -13,20 +27,21 @@ exports.findOne = (req, res) => {
 
   User.findOne({
     where: { id },
-    attributes: ["id", "username", "email"],
+    attributes: ["id", "email", "access_group"],
+    include: [Group]
   })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Не удалось создать пользователя!",
+        message: err.message || "Не удалось найти пользователя!",
       });
     });
 };
 
 exports.create = (req, res) => {
-  if (!req.body.username || !req.body.email || !req.body.password) {
+  if (!req.body.access_group || !req.body.email || !req.body.password) {
     res.status(400).send({
       message: "Неверные данные!",
     });
@@ -34,9 +49,9 @@ exports.create = (req, res) => {
   }
 
   User.create({
-    username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
+    email: req.body.email,
+    access_group: req.body.access_group,
   })
     .then((user) => {
       res.json(user);

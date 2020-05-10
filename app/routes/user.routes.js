@@ -3,7 +3,10 @@ module.exports = (app) => {
     router = require("express").Router(),
     isAuthenticated = require("../middleware/isAuthenticated");
 
-  router.get("/find/:id", isAuthenticated, users.findOne);
+  router.get("/list", users.findAll);
+
+  
+  router.get("/find/:id", users.findOne);
   router.post("/create", users.create);
 
   app.use("/api/users", router);
