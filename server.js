@@ -5,6 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config();
 
+
 const app = express();
 var corsOptions = {
   origin: process.env.ORIGIN || "*",
@@ -23,11 +24,19 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    maxAge: 10 * 60 * 1000
+  },
+  rolling: true
 }));
+
 app.use(passport.initialize());
+app.use(passport.session());
 
 require('./app/config/passport');
+
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/group.routes")(app);

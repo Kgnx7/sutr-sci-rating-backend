@@ -24,11 +24,16 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.username);
+  done(null, user.id);
 });
 
-passport.deserializeUser((username, done) => {
-  done(null, { username: username });
+passport.deserializeUser((id, done) => {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    }).catch(err => {
+      done(err);
+    })
 });
 
 module.exports = passport;

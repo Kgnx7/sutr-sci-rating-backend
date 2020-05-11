@@ -5,8 +5,7 @@ module.exports = (app) => {
 
   router.get("/list", users.findAll);
 
-  
-  router.get("/find/:id", users.findOne);
+  router.get("/find/:id", isAuthenticated, users.findOne);
   router.post("/create", users.create);
 
   app.use("/api/users", router);

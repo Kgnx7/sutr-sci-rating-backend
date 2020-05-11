@@ -17,7 +17,6 @@ exports.findAll = (req, res) => {
 
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
   if (id === undefined) {
     res.status(400).send({
       message: "Неверные данные!",
