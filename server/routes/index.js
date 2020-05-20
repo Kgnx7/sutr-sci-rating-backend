@@ -1,9 +1,8 @@
-const usersController = require('../controllers').users;
+const auth = require('./auth.route');
+const users = require('./users.route');
 
 module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'Hello, world!',
-  }));
 
-  app.get('/api/users', usersController.list);
+  app.use('/api/auth', auth);
+  app.use('/api/users', users);
 };

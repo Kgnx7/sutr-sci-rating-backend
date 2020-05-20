@@ -1,4 +1,5 @@
 const User = require('../models').User;
+const bcrypt = require("bcryptjs");
 
 module.exports = {
   create(req, res) {
@@ -10,9 +11,9 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
-  list(req, res) {
+  async list(req, res) {
     try {
-      const users = User.findAll();
+      const users = await User.findAll();
 
       res.status(200).send(users);
     } catch (error) {
