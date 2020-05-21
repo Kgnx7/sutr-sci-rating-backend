@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const passport = require("passport")
-const users = require('../controllers/users.controller')
+const roles = require('../utils/roles');
 
-router.get('/', users.list);
+const { users } = require('../controllers')
+
+const { isAuthenticated, hasRole } = require('../middleware');
+
+router.get('/list', isAuthenticated, hasRole(roles.Admin), users.list);
+
+// router.post('/create', isAuthenticated, hasRole(roles.Admin), users.create);
 
 module.exports = router

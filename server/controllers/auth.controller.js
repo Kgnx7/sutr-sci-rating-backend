@@ -24,3 +24,17 @@ exports.logout = (req, res) => {
   req.logout();
   res.end();
 };
+
+exports.getUser = (req, res) => {
+  try {
+    // const user = await sequelize.query(
+    //   `select u.*, p.title as position from users as u left join positions as p on (u.position = p.id) where u.id = ${id}`,
+    //   { type: Sequelize.QueryTypes.SELECT }
+    // );
+    console.log(req.user);
+    // console.log(user);
+    // done(null, user);
+  } catch (error) {
+    // done(error);
+  }
+};

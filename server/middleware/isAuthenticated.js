@@ -3,5 +3,5 @@ module.exports = (req, res, next) => {
     return next();
   }
 
-  return res.status(403).json({ message: "Пользователь не авторизован" });
+  return res.status(401).json({ message: "Пользователь не авторизован" });
 };

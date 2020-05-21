@@ -1,6 +1,8 @@
-const LocalStrategy = require("passport-local").Strategy,
-  User = require("../models").User,
-  passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const db = require("../models");
+const passport = require("passport");
+
+const {sequelize, Sequelize, User} = db;
 
 passport.use(
   new LocalStrategy(
@@ -10,8 +12,6 @@ passport.use(
         const user = await User.findOne({
           where: { login },
         });
-
-        console.log(user);
 
         if (!user) {
           return done(null, false, { message: "Неверный логин" });
@@ -34,13 +34,18 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findByPk(id)
-    .then((user) => {
-      done(null, user);
-    }).catch(err => {
-      done(err);
-    })
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await sequelize.query(
+      `select u.*, p.title as position from users as u left join positions as p on (u.position = p.id) where u.id = ${id}`,
+      { type: Sequelize.QueryTypes.SELECT }
+    );
+
+    console.log(user);
+    done(null, user);
+  } catch (error) {
+    done(error);
+  }
 });
 
 module.exports = passport;

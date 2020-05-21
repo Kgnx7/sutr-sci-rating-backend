@@ -1,7 +1,4 @@
-const users = require('./users.controller');
-const auth = require('./auth.controller');
-
 module.exports = {
-  auth,
-  users,
+  auth: require('./auth.controller'),
+  users: require('./users.controller')
 };  
