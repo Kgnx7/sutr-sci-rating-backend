@@ -3,7 +3,7 @@ module.exports = {
   users: require('./users.controller'),
   positions: require('./positions.controller'),
   cathedras: require('./cathedras.controller'),
-  stuffs: require('./stuffs.controller'),
+  staffs: require('./staffs.controller'),
   academicDegrees: require('./academicDegrees.controller'),
   academicRangs: require('./academicRangs.controller'),
 };  

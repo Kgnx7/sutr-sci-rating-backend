@@ -1,13 +1,13 @@
-const { Stuff } = require('../models');
+const { Staff } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
 
   async list(req, res) {
     try {
-      const stuffs = await Stuff.findAll();
+      const staffs = await Staff.findAll();
 
-      res.status(200).send(stuffs);
+      res.status(200).send(staffs);
     } catch (error) {
       res.status(400).send(error);
     }
@@ -24,13 +24,13 @@ module.exports = {
 
       const { id, data } = req.body;
 
-      await Stuff.update(data, {
+      await Staff.update(data, {
         where: { id },
       });
 
-      const updatedStuff = await Stuff.findByPk(id);
+      const updatedStaff = await Staff.findByPk(id);
 
-      res.status(200).send(updatedStuff);
+      res.status(200).send(updatedStaff);
 
     } catch (error) {
 
@@ -41,9 +41,9 @@ module.exports = {
   async create(req, res) {
     try {
 
-      const stuff = await Stuff.create(req.body);
+      const staff = await Staff.create(req.body);
 
-      res.status(201).send(stuff);
+      res.status(201).send(staff);
 
     } catch (error) {
       res.status(400).send(error);
