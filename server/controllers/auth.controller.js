@@ -13,8 +13,10 @@ exports.login = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      const { id, email, username } = user;
-      res.json({ id, email, username });
+
+      user.password = null;
+
+      res.json(user);
     });
 
   })(req, res);

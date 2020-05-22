@@ -7,7 +7,7 @@ const { users } = require('../controllers')
 const { isAuthenticated, hasRole } = require('../middleware');
 
 router.get('/list', isAuthenticated, hasRole(roles.Admin), users.list);
-
-// router.post('/create', isAuthenticated, hasRole(roles.Admin), users.create);
+router.post('/edit', isAuthenticated, hasRole(roles.Admin), users.edit);
+// router.get('/hash', users.hash);
 
 module.exports = router
