@@ -1,4 +1,5 @@
 const passport = require("passport")
+const { User } = require('../models');
 
 exports.login = (req, res, next) => {
 
@@ -27,16 +28,17 @@ exports.logout = (req, res) => {
   res.end();
 };
 
-exports.getUser = (req, res) => {
+exports.getUser = async (req, res) => {
   try {
-    // const user = await sequelize.query(
-    //   `select u.*, p.title as position from users as u left join positions as p on (u.position = p.id) where u.id = ${id}`,
-    //   { type: Sequelize.QueryTypes.SELECT }
-    // );
-    console.log(req.user);
-    // console.log(user);
-    // done(null, user);
+    const userId = req.session.passport.user;
+
+    const user = await User.findByPk(userId);
+
+    user.password = null;
+
+    res.json(user);
+
   } catch (error) {
-    // done(error);
+    res.status(400).send(error);
   }
 };
