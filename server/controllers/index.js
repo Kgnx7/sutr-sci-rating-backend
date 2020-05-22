@@ -4,4 +4,6 @@ module.exports = {
   positions: require('./positions.controller'),
   cathedras: require('./cathedras.controller'),
   stuffs: require('./stuffs.controller'),
+  academicDegrees: require('./academicDegrees.controller'),
+  academicRangs: require('./academicRangs.controller'),
 };  

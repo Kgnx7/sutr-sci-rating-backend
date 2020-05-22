@@ -4,4 +4,6 @@ module.exports = (app) => {
   app.use('/api/positions', require('./positions.route'));
   app.use('/api/cathedras', require('./cathedras.route'));
   app.use('/api/stuffs', require('./stuffs.route'));
+  app.use('/api/academicDegrees', require('./academicDegrees.route'));
+  app.use('/api/academicRank', require('./academicRank.route'));
 };
