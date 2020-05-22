@@ -1,14 +1,13 @@
-const User = require('../models').User;
+const { Stuff } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
-  async create(req, res) {
+
+  async list(req, res) {
     try {
+      const stuffs = await Stuff.findAll();
 
-      const user = await User.create(req.body);
-
-      res.status(201).send(user);
-
+      res.status(200).send(stuffs);
     } catch (error) {
       res.status(400).send(error);
     }
@@ -25,15 +24,13 @@ module.exports = {
 
       const { id, data } = req.body;
 
-      await User.update(data, {
+      await Stuff.update(data, {
         where: { id },
       });
 
-      const updatedUser = await User.findByPk(id);
+      const updatedStuff = await Stuff.findByPk(id);
 
-      updatedUser.password = null;
-
-      res.status(200).send(updatedUser);
+      res.status(200).send(updatedStuff);
 
     } catch (error) {
 
@@ -41,15 +38,15 @@ module.exports = {
     }
   },
 
-  async list(req, res) {
+  async create(req, res) {
     try {
-      const users = await User.findAll();
 
-      users.forEach(user => user.password = null);
+      const stuff = await Stuff.create(req.body);
 
-      res.status(200).send(users);
+      res.status(201).send(stuff);
+
     } catch (error) {
       res.status(400).send(error);
     }
-  },
+  }
 };

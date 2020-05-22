@@ -1,7 +1,7 @@
-const {Position} = require('../models');
+const { Position } = require('../models');
 
 module.exports = {
- 
+
   async list(req, res) {
     try {
       const positions = await Position.findAll();
