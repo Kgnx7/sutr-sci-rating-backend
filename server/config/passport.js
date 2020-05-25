@@ -6,12 +6,12 @@ const { sequelize, Sequelize, User } = db;
 
 const getUserQuery = `
   select u.*, p.title as position, c.title as cathedra, ad.title as academicDegree, ar.title as academicRank, s.title as staff
-  from users as u 
-  left join positions as p on (u.position = p.id)
-  left join сathedras as c on (u.cathedra = c.id)
-  left join academicdegrees as ad on (u.academicdegree = ad.id)
-  left join academicranks as ar on (u.academicrank = ar.id)
-  left join staffs as s on (u.staff = s.id)
+  from Users as u 
+  left join Positions as p on (u.position = p.id)
+  left join Cathedras as c on (u.cathedra = c.id)
+  left join academicDegrees as ad on (u.academicdegree = ad.id)
+  left join AcademicRanks as ar on (u.academicrank = ar.id)
+  left join Staffs as s on (u.staff = s.id)
 `;
 
 passport.use(
@@ -39,7 +39,7 @@ passport.use(
         return done(null, user);
 
       } catch (error) {
-        return done(error);
+        return done({ error, message: error.message });
       }
     }
   )
