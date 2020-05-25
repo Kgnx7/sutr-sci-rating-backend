@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const { editReq } = require('../utils/dataSchemas/common');
+const { sequelize, Sequelize }  = require("../models");
 
 module.exports = {
   async create(req, res) {
@@ -10,7 +11,7 @@ module.exports = {
       res.status(201).send(user);
 
     } catch (error) {
-      res.status(400).send(error);
+      res.status(400).send({ message: error });
     }
   },
 
@@ -49,7 +50,35 @@ module.exports = {
 
       res.status(200).send(users);
     } catch (error) {
-      res.status(400).send(error);
+      res.status(400).send({ message: error.message });
     }
   },
+
+  async findOne(req, res) {
+    try {
+
+      const id = req.query.id;
+
+      const user = await sequelize.query(
+        `select u.*, p.title as position, c.title as cathedra, ad.title as academicDegree, ar.title as academicRank, s.title as staff
+          from users as u 
+          left join positions as p on (u.position = p.id)
+          left join сathedras as c on (u.cathedra = c.id)
+          left join academicdegrees as ad on (u.academicdegree = ad.id)
+          left join academicranks as ar on (u.academicrank = ar.id)
+          left join staffs as s on (u.staff = s.id) where u.id = "${id}"`,
+        {
+          type: Sequelize.QueryTypes.SELECT,
+          model: User,
+          plain: true
+        }
+      );
+
+      user.password = null;
+
+      res.status(200).send(user);
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  }
 };

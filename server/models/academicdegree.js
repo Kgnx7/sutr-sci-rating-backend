@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   }, {});
-  academicDegree.associate = function(models) {
+  academicDegree.associate = function (models) {
     // associations can be defined here
   };
   return academicDegree;

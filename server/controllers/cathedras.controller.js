@@ -9,7 +9,7 @@ module.exports = {
 
       res.status(200).send(cathedras);
     } catch (error) {
-      res.status(400).send(error);
+      res.status(400).send({ message: error.message });
     }
   },
 
@@ -46,7 +46,7 @@ module.exports = {
       res.status(201).send(cathedra);
 
     } catch (error) {
-      res.status(400).send(error);
+      res.status(400).send({ message: error.message });
     }
   }
 };

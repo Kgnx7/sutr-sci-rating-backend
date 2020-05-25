@@ -8,6 +8,6 @@ const { isAuthenticated, hasRole } = require('../middleware');
 
 router.get('/list', isAuthenticated, hasRole(roles.Admin), cathedras.list);
 router.post('/edit', isAuthenticated, hasRole(roles.Admin), cathedras.edit);
-// router.post('/create', isAuthenticated, hasRole(roles.Admin), cathedras.create);
+router.post('/create', isAuthenticated, hasRole(roles.Admin), cathedras.create);
 
 module.exports = router
