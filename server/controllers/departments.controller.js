@@ -1,13 +1,13 @@
-const { Сathedra } = require('../models');
+const { Department } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
 
   async list(req, res) {
     try {
-      const cathedras = await Сathedra.findAll();
+      const departments = await Department.findAll();
 
-      res.status(200).send(cathedras);
+      res.status(200).send(departments);
     } catch (error) {
       res.status(400).send({ message: error.message });
     }
@@ -24,13 +24,13 @@ module.exports = {
 
       const { id, data } = req.body;
 
-      await Cathedra.update(data, {
+      await Department.update(data, {
         where: { id },
       });
 
-      const updatedCathedra = await Cathedra.findByPk(id);
+      const updatedDepartment = await Department.findByPk(id);
 
-      res.status(200).send(updatedCathedra);
+      res.status(200).send(updatedDepartment);
 
     } catch (error) {
 
@@ -41,9 +41,9 @@ module.exports = {
   async create(req, res) {
     try {
 
-      const cathedra = await Cathedra.create(req.body);
+      const Department = await Department.create(req.body);
 
-      res.status(201).send(cathedra);
+      res.status(201).send(Department);
 
     } catch (error) {
       res.status(400).send({ message: error.message });

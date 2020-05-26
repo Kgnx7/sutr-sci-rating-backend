@@ -24,7 +24,7 @@ module.exports = {
 
       const { id, data } = req.body;
 
-      await academicDegree.update(data, {
+      await AcademicDegree.update(data, {
         where: { id },
       });
 

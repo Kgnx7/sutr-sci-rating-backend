@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     login: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique: true
     },
     password: {
       type: DataTypes.STRING,
@@ -21,11 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     patronymic: {
       type: DataTypes.STRING,
-      allowNull: false
     },
-    cathedra: {
+    department: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      // allowNull: false
     },
     position: {
       type: DataTypes.INTEGER,
@@ -33,19 +33,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     academicDegree: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      // allowNull: false
     },
     academicRank: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      // allowNull: false
     },
     staff: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      // allowNull: false
     },
     salaryRate: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      // allowNull: false
     },
     phone: {
       type: DataTypes.STRING,
@@ -59,10 +59,17 @@ module.exports = (sequelize, DataTypes) => {
     SNILS4: {
       type: DataTypes.BIGINT
     }
-  }, {});
+  }, {
+    indexes: [
+      {
+        unique: true,
+        fields: ['login']
+      }
+    ]
+  });
 
   User.associate = (models) => {
-    // associations can be defined here
+    // associations
   };
 
   User.prototype.validPassword = function (password) {

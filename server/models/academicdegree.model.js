@@ -1,13 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const academicDegree = sequelize.define('academicDegree', {
+  const AcademicDegree = sequelize.define('AcademicDegree', {
     title: {
       type: DataTypes.STRING,
       allowNull: false
     }
   }, {});
-  academicDegree.associate = function (models) {
+  AcademicDegree.associate = function (models) {
     // associations can be defined here
   };
-  return academicDegree;
+  return AcademicDegree;
 };

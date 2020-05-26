@@ -1,11 +1,11 @@
-const { academicDegree } = require('../models');
+const { AcademicDegree } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
 
   async list(req, res) {
     try {
-      const academicDegrees = await academicDegree.findAll();
+      const academicDegrees = await AcademicDegree.findAll();
 
       res.status(200).send(academicDegrees);
     } catch (error) {
@@ -24,11 +24,11 @@ module.exports = {
 
       const { id, data } = req.body;
 
-      await academicDegree.update(data, {
+      await AcademicDegree.update(data, {
         where: { id },
       });
 
-      const updatedAcademicDegree = await academicDegree.findByPk(id);
+      const updatedAcademicDegree = await AcademicDegree.findByPk(id);
 
       res.status(200).send(updatedAcademicDegree);
 
@@ -41,7 +41,7 @@ module.exports = {
   async create(req, res) {
     try {
 
-      const academicDegrees = await academicDegree.create(req.body);
+      const academicDegrees = await AcademicDegree.create(req.body);
 
       res.status(201).send(academicDegrees);
 
