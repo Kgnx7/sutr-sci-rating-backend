@@ -1,5 +1,6 @@
 const passport = require("passport")
 const { User } = require('../models');
+const collectUserInfo = require("../utils/queries/collectUserInfo");
 
 exports.login = (req, res, next) => {
 
@@ -18,8 +19,6 @@ exports.login = (req, res, next) => {
         return next(err);
       }
 
-      user.password = null;
-
       res.json(user);
     });
 
@@ -37,9 +36,9 @@ exports.getUser = async (req, res) => {
 
     const user = await User.findByPk(userId);
 
-    user.password = null;
+    const userInfo = collectUserInfo(user);
 
-    res.json(user);
+    res.json(userInfo);
 
   } catch (error) {
     res.status(400).send({ message: error.message });

@@ -24,9 +24,9 @@ passport.use(
           return done(null, false, { message: "Неверный пароль" });
         }
 
-        const responce = await collectUserInfo(user);
+        const userInfo = await collectUserInfo(user);
 
-        return done(null, responce);
+        return done(null, userInfo);
 
       } catch (error) {
         return done(error);
@@ -44,9 +44,9 @@ passport.deserializeUser(async (id, done) => {
 
     const user = await User.findByPk(id);
 
-    const fullUser = await collectUserInfo(user);
+    const userInfo = await collectUserInfo(user);
 
-    done(null, fullUser);
+    done(null, userInfo);
   } catch (error) {
     done(error);
   }

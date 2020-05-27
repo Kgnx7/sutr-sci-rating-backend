@@ -1,6 +1,7 @@
 const User = require('../models').User;
 const { editReq } = require('../utils/dataSchemas/common');
 const { sequelize, Sequelize }  = require("../models");
+const collectUserInfo = require("../utils/queries/collectUserInfo");
 
 module.exports = {
   async create(req, res) {
@@ -47,7 +48,9 @@ module.exports = {
     try {
       const users = await User.findAll();
 
-      users.forEach(user => user.password = null);
+      for (let i = 0; i < users.length; i++) {
+        users[i] = await collectUserInfo(users[i]);
+      }
 
       res.status(200).send(users);
     } catch (error) {
