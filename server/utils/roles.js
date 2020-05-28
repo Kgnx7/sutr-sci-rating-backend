@@ -6,6 +6,7 @@ const ROLES = {
   Professor: 'профессор',
   HeadOfDepartment: 'заведующий кафедрой',
   Dean: 'декан',
+  // AssistentDean: '',
   Rector: 'ректор'
 }
 

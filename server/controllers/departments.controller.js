@@ -1,4 +1,4 @@
-const { Department } = require('../models');
+const { Department, User } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
@@ -44,6 +44,24 @@ module.exports = {
       const Department = await Department.create(req.body);
 
       res.status(201).send(Department);
+
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
+
+  async staff(req, res) {
+    try {
+
+      const { id } = req.query;
+
+      const staffOfDepartment = await User.findAll({
+        where: {
+          department: id
+        }
+      });
+
+      res.status(200).send(staffOfDepartment);
 
     } catch (error) {
       res.status(400).send({ message: error.message });

@@ -5,15 +5,15 @@ const collectUserInfo = require("../utils/queries/collectUserInfo");
 exports.login = (req, res, next) => {
 
   passport.authenticate('local', (err, user, info) => {
-    if (err) { 
-      return next(err); 
+    if (err) {
+      return next(err);
     }
 
     if (!user) {
       return res.status(401).json(info);
     }
 
-    req.login(user, (err) => {
+    req.login(user, async (err) => {
 
       if (err) {
         return next(err);

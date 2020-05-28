@@ -6,5 +6,4 @@ const GROUPS = {
   Department: [roles.HeadOfDepartment],
   Worker: [roles.Lecturer, roles.SeniorLecturer, roles.Docent, roles.Professor]
 }
-
 module.exports = GROUPS;

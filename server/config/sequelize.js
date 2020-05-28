@@ -4,7 +4,7 @@ module.exports = {
   "development": {
     "username": "root",
     "password": 'toor',
-    "database": "database_development",
+    "database": "sutr_dev",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false

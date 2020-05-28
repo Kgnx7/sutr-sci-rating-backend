@@ -1,4 +1,4 @@
-const { User, Position } = require("../../models");
+const { User, Position, Department } = require("../../models");
 
 module.exports = async function collectUserInfo(user) {
   try {
@@ -12,7 +12,19 @@ module.exports = async function collectUserInfo(user) {
     if (user.position) {
       const position = await Position.findByPk(user.position);
 
-      finalUser.position = position.title;
+      if (position) {
+        finalUser.positionId = user.position;
+        finalUser.position = position.title;
+      }
+    }
+
+    if (user.department) {
+      const department = await Department.findByPk(user.department);
+
+      if (position) {
+        finalUser.departmentId = user.department;
+        finalUser.department = department.short;
+      }
     }
 
     return finalUser;
