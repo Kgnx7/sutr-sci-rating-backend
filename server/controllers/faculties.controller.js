@@ -1,4 +1,4 @@
-const { Faculty } = require('../models');
+const { Faculty, Department } = require('../models');
 
 module.exports = {
 
@@ -21,4 +21,22 @@ module.exports = {
       res.status(400).send({ message: error.message, error });
     }
   },
+
+  async departments(req, res) {
+    try {
+
+      const { id } = req.query;
+
+      const departments = await Department.findAll({
+        where: {
+          faculty: id
+        }
+      });
+
+      res.status(200).send(departments);
+
+    } catch (error) {
+      res.status(400).send({ message: error.message, error });
+    }
+  }
 };

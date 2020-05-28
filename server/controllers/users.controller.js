@@ -63,24 +63,11 @@ module.exports = {
 
       const id = req.query.id;
 
-      const user = await sequelize.query(
-        `select u.*, p.title as position, c.title as Department, ad.title as AcademicDegree, ar.title as academicRank, s.title as staff
-          from users as u 
-          left join positions as p on (u.position = p.id)
-          left join сathedras as c on (u.Department = c.id)
-          left join academicdegrees as ad on (u.AcademicDegree = ad.id)
-          left join academicranks as ar on (u.academicrank = ar.id)
-          left join staffs as s on (u.staff = s.id) where u.id = "${id}"`,
-        {
-          type: Sequelize.QueryTypes.SELECT,
-          model: User,
-          plain: true
-        }
-      );
+      const user = await User.findByPk(id);
 
-      user.password = null;
+      const userInfo = await collectUserInfo(user);
 
-      res.status(200).send(user);
+      res.status(200).send(userInfo);
     } catch (error) {
       res.status(400).send({ message: error.message });
     }

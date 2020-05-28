@@ -21,7 +21,7 @@ module.exports = async function collectUserInfo(user) {
     if (user.department) {
       const department = await Department.findByPk(user.department);
 
-      if (position) {
+      if (department) {
         finalUser.departmentId = user.department;
         finalUser.department = department.short;
       }
