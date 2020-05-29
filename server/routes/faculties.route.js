@@ -9,7 +9,7 @@ const { isAuthenticated, hasRole, inGroup } = require('../middleware');
 
 router.get('/list', isAuthenticated, inGroup(groups.University), faculties.list);
 router.post('/create', isAuthenticated, hasRole(roles.Admin), faculties.create);
-
+router.post('/edit', isAuthenticated, hasRole(roles.Admin), faculties.edit);
 router.get('/departments', isAuthenticated, inGroup(groups.University, groups.Faculty), faculties.departments);
 
 module.exports = router

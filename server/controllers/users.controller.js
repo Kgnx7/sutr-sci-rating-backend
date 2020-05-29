@@ -8,7 +8,6 @@ module.exports = {
     try {
 
       const user = await User.create(req.body);
-      // const user = req.body;
 
       res.status(201).send(user);
 
@@ -32,9 +31,9 @@ module.exports = {
         where: { id },
       });
 
-      const updatedUser = await User.findByPk(id);
+      let updatedUser = await User.findByPk(id);
 
-      updatedUser.password = null;
+      updatedUser = await collectUserInfo(updatedUser);
 
       res.status(200).send(updatedUser);
 
