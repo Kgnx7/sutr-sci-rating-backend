@@ -7,7 +7,7 @@ const { departments } = require('../controllers');
 
 const { isAuthenticated, hasRole, inGroup } = require('../middleware');
 
-router.get('/list', isAuthenticated, hasRole(roles.Admin), departments.list);
+router.get('/list', isAuthenticated, inGroup(groups.University, groups.Faculty, groups.Department), departments.list);
 router.post('/edit', isAuthenticated, hasRole(roles.Admin), departments.edit);
 router.post('/create', isAuthenticated, hasRole(roles.Admin), departments.create);
 

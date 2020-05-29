@@ -1,11 +1,17 @@
 const { Department, User } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
+const collectDepartmentInfo = require('../utils/queries/collectDepartmentInfo');
+const collectUserInfo = require('../utils/queries/collectUserInfo');
 
 module.exports = {
 
   async list(req, res) {
     try {
       const departments = await Department.findAll();
+
+      for (let i = 0; i < departments.length; i++) {
+        departments[i] = await collectDepartmentInfo(departments[i]);
+      }
 
       res.status(200).send(departments);
     } catch (error) {
@@ -60,6 +66,10 @@ module.exports = {
           department: id
         }
       });
+
+      for (let i = 0; i < staffOfDepartment.length; i++) {
+        staffOfDepartment[i] = await collectUserInfo(staffOfDepartment[i]);
+      }
 
       res.status(200).send(staffOfDepartment);
 

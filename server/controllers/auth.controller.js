@@ -36,7 +36,7 @@ exports.getUser = async (req, res) => {
 
     const user = await User.findByPk(userId);
 
-    const userInfo = collectUserInfo(user);
+    const userInfo = await collectUserInfo(user);
 
     res.json(userInfo);
 

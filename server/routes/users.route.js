@@ -1,14 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const roles = require('../utils/roles');
+const groups = require('../utils/groups');
 
 const { users } = require('../controllers')
 
-const { isAuthenticated, hasRole } = require('../middleware');
+const { isAuthenticated, inGroup } = require('../middleware');
 
-router.get('/list', isAuthenticated, hasRole(roles.Admin), users.list);
-router.get('/get', isAuthenticated, hasRole(roles.Admin), users.findOne);
-router.post('/edit', isAuthenticated, hasRole(roles.Admin), users.edit);
-router.post('/create', isAuthenticated, hasRole(roles.Admin), users.create);
+router.get('/list', isAuthenticated, inGroup(groups.University), users.list);
+router.get('/get', isAuthenticated, inGroup(groups.University), users.findOne);
+router.post('/edit', isAuthenticated, inGroup(groups.University), users.edit);
+router.post('/create', isAuthenticated, inGroup(groups.University), users.create);
 
 module.exports = router

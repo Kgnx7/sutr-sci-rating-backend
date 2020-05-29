@@ -1,6 +1,6 @@
-const express = require('express')
-const router = express.Router()
-const auth = require('../controllers/auth.controller')
+const express = require('express');
+const router = express.Router();
+const auth = require('../controllers/auth.controller');
 const { isAuthenticated } = require('../middleware');
 
 router.post('/login', auth.login);

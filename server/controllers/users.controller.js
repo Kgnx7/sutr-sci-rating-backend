@@ -46,6 +46,9 @@ module.exports = {
 
   async list(req, res) {
     try {
+
+      const { page, perPage } = req.query;
+
       const users = await User.findAll();
 
       for (let i = 0; i < users.length; i++) {

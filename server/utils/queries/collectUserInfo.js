@@ -1,4 +1,4 @@
-const { User, Position, Department } = require("../../models");
+const { Position, Department, AcademicRank, AcademicDegree, Staff } = require("../../models");
 
 module.exports = async function collectUserInfo(user) {
   try {
@@ -6,7 +6,11 @@ module.exports = async function collectUserInfo(user) {
     const finalUser = {
       id: user.id,
       login: user.login,
-      mail: user.mail
+      email: user.email,
+      phone: user.phone,
+      displayName: [user.surname, user.name, user.patronymic].join(' ').trim(),
+      salaryRate: user.salaryRate,
+      yearOfBirth: user.yearOfBirth
     }
 
     if (user.position) {
@@ -24,6 +28,33 @@ module.exports = async function collectUserInfo(user) {
       if (department) {
         finalUser.departmentId = user.department;
         finalUser.department = department.short;
+      }
+    }
+
+    if (user.academicRank) {
+      const academicRank = await AcademicRank.findByPk(user.academicRank);
+
+      if (academicRank) {
+        finalUser.academicRankId = user.academicRank;
+        finalUser.academicRank = academicRank.title;
+      }
+    }
+
+    if (user.academicDegree) {
+      const academicDegree = await AcademicDegree.findByPk(user.academicDegree);
+
+      if (academicDegree) {
+        finalUser.academicDegreeId = user.academicDegree;
+        finalUser.academicDegree = academicDegree.title;
+      }
+    }
+
+    if (user.staff) {
+      const staff = await Staff.findByPk(user.staff);
+
+      if (staff) {
+        finalUser.staffId = user.staff;
+        finalUser.staff = staff.title;
       }
     }
 

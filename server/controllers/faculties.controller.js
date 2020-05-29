@@ -1,10 +1,16 @@
 const { Faculty, Department } = require('../models');
+const collectFacultyInfo = require("../utils/queries/collectFacultyInfo");
+const collectDepartmentInfo = require("../utils/queries/collectDepartmentInfo");
 
 module.exports = {
 
   async list(req, res) {
     try {
       const faculties = await Faculty.findAll();
+
+      for (let i = 0; i < faculties.length; i++) {
+        faculties[i] = await collectFacultyInfo(faculties[i]);
+      }
 
       res.status(200).send(faculties);
     } catch (error) {
@@ -32,6 +38,10 @@ module.exports = {
           faculty: id
         }
       });
+
+      for (let i = 0; i < departments.length; i++) {
+        departments[i] = await collectDepartmentInfo(departments[i]);
+      }
 
       res.status(200).send(departments);
 

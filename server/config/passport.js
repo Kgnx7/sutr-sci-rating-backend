@@ -15,7 +15,6 @@ passport.use(
           where: { login }
         });
 
-
         if (!user) {
           return done(null, false, { message: "Неверный логин" });
         }
