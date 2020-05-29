@@ -1,4 +1,5 @@
 const { Position } = require('../models');
+const { editReq } = require('../utils/dataSchemas/common');
 
 module.exports = {
 
@@ -8,7 +9,7 @@ module.exports = {
 
       res.status(200).send(positions);
     } catch (error) {
-      res.status(400).send({message: error.message});
+      res.status(400).send({ message: error.message });
     }
   },
 
@@ -18,7 +19,30 @@ module.exports = {
 
       res.status(201).send(position);
     } catch (error) {
-      res.status(400).send({message: error.message});
+      res.status(400).send({ message: error.message });
+    }
+  },
+
+  async edit(req, res) {
+    try {
+      const isReqBodyCorrect = await editReq.isValid(req.body);
+
+      if (!isReqBodyCorrect) {
+        throw new Error('Некорректный запрос');
+      }
+
+      const { id, data } = req.body;
+
+      await Position.update(data, {
+        where: { id },
+      });
+
+      const updatedPosition = await Position.findByPk(id);
+
+      res.status(200).send(updatedPosition);
+
+    } catch (error) {
+      res.status(400).send({ message: error.message });
     }
   },
 };
