@@ -34,7 +34,9 @@ module.exports = {
         where: { id },
       });
 
-      const updatedDepartment = await Department.findByPk(id);
+      let updatedDepartment = await Department.findByPk(id);
+
+      updatedDepartment = await collectDepartmentInfo(updatedDepartment);
 
       res.status(200).send(updatedDepartment);
 
