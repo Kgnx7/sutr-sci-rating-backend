@@ -11,6 +11,6 @@ router.get('/current', isAuthenticated, inGroup(groups.Faculty), faculties.curre
 router.get('/list', isAuthenticated, inGroup(groups.University), faculties.list);
 router.post('/create', isAuthenticated, inGroup(groups.University), faculties.create);
 router.post('/edit', isAuthenticated, inGroup(groups.University), faculties.edit);
-router.get('/departments', isAuthenticated, inGroup(groups.University), faculties.departments);
+// router.get('/departments', isAuthenticated, inGroup(groups.University), faculties.departments);
 
 module.exports = router

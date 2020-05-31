@@ -46,27 +46,41 @@ module.exports = {
     }
   },
 
-  async departments(req, res) {
-    try {
+  // async departments(req, res) {
+  //   try {
+  //     let departments = [];
 
-      const { id } = req.query;
+  //     if (req.user.position === roles.Dean) {
+  //       const departmentId = req.user.departmentId;
 
-      const departments = await Department.findAll({
-        where: {
-          faculty: id
-        }
-      });
+  //       const { faculty } = await Department.findByPk(departmentId, { attributes: ['faculty'] });
 
-      for (let i = 0; i < departments.length; i++) {
-        departments[i] = await collectDepartmentInfo(departments[i]);
-      }
+  //       departments = await Department.findAll({
+  //         where: {
+  //           faculty
+  //         }
+  //       });
 
-      res.status(200).send(departments);
+  //     } else {
+  //       const { id } = req.query;
 
-    } catch (error) {
-      res.status(400).send({ message: error.message, error });
-    }
-  },
+  //       departments = await Department.findAll({
+  //         where: {
+  //           faculty: id
+  //         }
+  //       });
+  //     }
+
+  //     for (let i = 0; i < departments.length; i++) {
+  //       departments[i] = await collectDepartmentInfo(departments[i]);
+  //     }
+
+  //     res.status(200).send(departments);
+
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message, error });
+  //   }
+  // },
 
   async edit(req, res) {
     try {

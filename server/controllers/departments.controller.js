@@ -2,6 +2,7 @@ const { Department, User } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 const collectDepartmentInfo = require('../utils/queries/collectDepartmentInfo');
 const collectUserInfo = require('../utils/queries/collectUserInfo');
+const roles = require('../utils/roles');
 
 module.exports = {
 
@@ -21,15 +22,27 @@ module.exports = {
 
   async listByFaculty(req, res) {
     try {
-      const departmentId = req.user.departmentId
+      let departments = [];
 
-      const { faculty } = await Department.findByPk(departmentId, { attributes: ['faculty'] });
+      if (req.user.position === roles.Dean) {
+        const departmentId = req.user.departmentId
 
-      const departments = await Department.findAll({
-        where: {
-          faculty
-        }
-      });
+        const { faculty } = await Department.findByPk(departmentId, { attributes: ['faculty'] });
+
+        departments = await Department.findAll({
+          where: {
+            faculty
+          }
+        });
+      } else {
+        const { id } = req.query;
+
+        departments = await Department.findAll({
+          where: {
+            faculty: id
+          }
+        });
+      }
 
       for (let i = 0; i < departments.length; i++) {
         departments[i] = await collectDepartmentInfo(departments[i]);
