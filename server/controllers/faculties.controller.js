@@ -19,6 +19,23 @@ module.exports = {
     }
   },
 
+  async current(req, res) {
+    try {
+
+      const departmentId = req.user.departmentId
+
+      const { faculty } = await Department.findByPk(departmentId, { attributes: ['faculty'] });
+
+      let facultyInfo = await Faculty.findByPk(faculty);
+
+      facultyInfo = await collectFacultyInfo(facultyInfo);
+
+      res.status(200).send(facultyInfo);
+    } catch (error) {
+      res.status(400).send({ message: error.message, error });
+    }
+  },
+
   async create(req, res) {
     try {
       const faculty = await Faculty.create(req.body);
