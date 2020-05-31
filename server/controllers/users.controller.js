@@ -1,8 +1,9 @@
-const User = require('../models').User;
+const { User, Department } = require('../models');
 const { editReq } = require('../utils/dataSchemas/common');
 const { sequelize, Sequelize } = require("../models");
 const collectUserInfo = require("../utils/queries/collectUserInfo");
 const Op = Sequelize.Op
+const groups = require('../utils/groups');
 
 module.exports = {
   async create(req, res) {
@@ -69,6 +70,60 @@ module.exports = {
           ]
         }
       });
+
+      for (let i = 0; i < rows.length; i++) {
+        rows[i] = await collectUserInfo(rows[i]);
+      }
+
+      res.status(200).send({ users: rows, count });
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
+
+  async listByDepartment(req, res) {
+    try {
+      const { position, departmentId } = req.user;
+      const id = parseInt(req.query.id);
+
+      if (groups.Department.includes(position) && departmentId !== id) {
+        return res.status(403).json({ message: "Нет прав" });
+
+      } else if (groups.Faculty.includes(position)) {
+
+        const userDepartment = await Department.findByPk(departmentId, { attributes: ['faculty'] });
+        const requestedDepartment = await Department.findByPk(id, { attributes: ['faculty'] });
+
+        if (userDepartment.faculty !== requestedDepartment.faculty) {
+          return res.status(403).json({ message: "Нет прав" });
+        }
+
+      }
+
+      const query = req.query;
+      const limit = parseInt(query.limit);
+      const offset = parseInt(query.offset);
+      const filter = query.filter;
+
+      const { count, rows } = await User.findAndCountAll({
+        limit,
+        offset,
+        where: {
+          department: id,
+          [Op.or]: [
+            {
+              login: { [Op.substring]: filter },
+            },
+            {
+              name: { [Op.substring]: filter },
+            },
+            {
+              surname: { [Op.substring]: filter },
+            },
+          ]
+        }
+      });
+
 
       for (let i = 0; i < rows.length; i++) {
         rows[i] = await collectUserInfo(rows[i]);

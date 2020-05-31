@@ -94,25 +94,25 @@ module.exports = {
     }
   },
 
-  async staff(req, res) {
-    try {
+  // async staff(req, res) {
+  //   try {
 
-      const { id } = req.query;
+  //     const { id } = req.query;
 
-      const staffOfDepartment = await User.findAll({
-        where: {
-          department: id
-        }
-      });
+  //     const staffOfDepartment = await User.findAll({
+  //       where: {
+  //         department: id
+  //       }
+  //     });
 
-      for (let i = 0; i < staffOfDepartment.length; i++) {
-        staffOfDepartment[i] = await collectUserInfo(staffOfDepartment[i]);
-      }
+  //     for (let i = 0; i < staffOfDepartment.length; i++) {
+  //       staffOfDepartment[i] = await collectUserInfo(staffOfDepartment[i]);
+  //     }
 
-      res.status(200).send(staffOfDepartment);
+  //     res.status(200).send(staffOfDepartment);
 
-    } catch (error) {
-      res.status(400).send({ message: error.message });
-    }
-  }
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message });
+  //   }
+  // }
 };

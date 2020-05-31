@@ -11,6 +11,6 @@ router.get('/list', isAuthenticated, inGroup(groups.University), departments.lis
 router.get('/listByFaculty', isAuthenticated, inGroup(groups.University, groups.Faculty), departments.listByFaculty);
 router.post('/edit', isAuthenticated, hasRole(roles.Admin), departments.edit);
 router.post('/create', isAuthenticated, hasRole(roles.Admin), departments.create);
-router.get('/staff', isAuthenticated, inGroup(groups.University, groups.Faculty, groups.Department), departments.staff);
+// router.get('/staff', isAuthenticated, inGroup(groups.University, groups.Faculty, groups.Department), departments.staff);
 
 module.exports = router
