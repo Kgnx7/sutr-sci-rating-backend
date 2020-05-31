@@ -19,6 +19,29 @@ module.exports = {
     }
   },
 
+  async listByFaculty(req, res) {
+    try {
+      const departmentId = req.user.departmentId
+
+      const { faculty } = await Department.findByPk(departmentId, { attributes: ['faculty'] });
+
+      const departments = await Department.findAll({
+        where: {
+          faculty
+        }
+      });
+
+      for (let i = 0; i < departments.length; i++) {
+        departments[i] = await collectDepartmentInfo(departments[i]);
+      }
+
+      res.status(200).send(departments);
+
+    } catch (error) {
+      res.status(400).send({ message: error.message });
+    }
+  },
+
   async edit(req, res) {
     try {
 
