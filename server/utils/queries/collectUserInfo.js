@@ -1,4 +1,4 @@
-const { Position, Department, AcademicRank, AcademicDegree, Staff } = require("../../models");
+const { Position, Department, AcademicRank, AcademicDegree, Staff, Faculty } = require("../../models");
 
 module.exports = async function collectUserInfo(user) {
   try {
@@ -28,6 +28,13 @@ module.exports = async function collectUserInfo(user) {
       if (department) {
         finalUser.departmentId = user.department;
         finalUser.department = department.short;
+
+        const faculty = await Faculty.findByPk(department.faculty);
+
+        if (faculty) {
+          finalUser.facultyId = faculty.id;
+          finalUser.faculty = faculty.title;
+        }
       }
     }
 

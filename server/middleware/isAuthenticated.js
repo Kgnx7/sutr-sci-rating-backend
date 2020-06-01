@@ -1,7 +1,7 @@
 module.exports = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return next();
+    return next()
   }
 
-  return res.status(401).json({ message: "Пользователь не авторизован" });
-};
+  return res.status(401).json({ message: 'Пользователь не авторизован' })
+}

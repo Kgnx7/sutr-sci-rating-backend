@@ -1,57 +1,51 @@
-const { User, Department } = require('../models');
-const { editReq } = require('../utils/dataSchemas/common');
-const { sequelize, Sequelize } = require("../models");
-const collectUserInfo = require("../utils/queries/collectUserInfo");
+const { User, Department } = require('../models')
+const { editReq } = require('../utils/dataSchemas/common')
+const { sequelize, Sequelize } = require('../models')
+const collectUserInfo = require('../utils/queries/collectUserInfo')
 const Op = Sequelize.Op
-const groups = require('../utils/groups');
+const groups = require('../utils/groups')
 
 module.exports = {
   async create(req, res) {
     try {
+      const user = await User.create(req.body)
 
-      const user = await User.create(req.body);
-
-      res.status(201).send(user);
-
+      res.status(201).send(user)
     } catch (error) {
-      res.status(400).send({ message: error });
+      res.status(400).send({ message: error })
     }
   },
 
   async edit(req, res) {
     try {
-
-      const isReqBodyCorrect = await editReq.isValid(req.body);
+      const isReqBodyCorrect = await editReq.isValid(req.body)
 
       if (!isReqBodyCorrect) {
-        throw new Error('Некорректный запрос');
+        throw new Error('Некорректный запрос')
       }
 
-      const { id, data } = req.body;
+      const { id, data } = req.body
 
       await User.update(data, {
         where: { id },
-      });
+      })
 
-      let updatedUser = await User.findByPk(id);
+      let updatedUser = await User.findByPk(id)
 
-      updatedUser = await collectUserInfo(updatedUser);
+      updatedUser = await collectUserInfo(updatedUser)
 
-      res.status(200).send(updatedUser);
-
+      res.status(200).send(updatedUser)
     } catch (error) {
-
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ message: error.message })
     }
   },
 
   async list(req, res) {
     try {
-
-      const query = req.query;
-      const limit = parseInt(query.limit);
-      const offset = parseInt(query.offset);
-      const filter = query.filter;
+      const query = req.query
+      const limit = parseInt(query.limit)
+      const offset = parseInt(query.offset)
+      const filter = query.filter
 
       const { count, rows } = await User.findAndCountAll({
         limit,
@@ -67,49 +61,52 @@ module.exports = {
             {
               surname: { [Op.substring]: filter },
             },
-          ]
-        }
-      });
+          ],
+        },
+      })
 
       for (let i = 0; i < rows.length; i++) {
-        rows[i] = await collectUserInfo(rows[i]);
+        rows[i] = await collectUserInfo(rows[i])
       }
 
-      res.status(200).send({ users: rows, count });
+      res.status(200).send({ users: rows, count })
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ message: error.message })
     }
   },
 
   async listByDepartment(req, res) {
     try {
-      const { position, departmentId } = req.user;
-      const id = parseInt(req.query.id);
+      const { position, departmentId, facultyId } = req.user
 
-      if (groups.Department.includes(position) && departmentId !== id) {
-        return res.status(403).json({ message: "Нет прав" });
+      const params = req.params
+      const requestedFacultyId = parseInt(params.facultyId)
+      const requestedDepartmentId = parseInt(params.departmentId)
 
-      } else if (groups.Faculty.includes(position)) {
-
-        const userDepartment = await Department.findByPk(departmentId, { attributes: ['faculty'] });
-        const requestedDepartment = await Department.findByPk(id, { attributes: ['faculty'] });
-
-        if (userDepartment.faculty !== requestedDepartment.faculty) {
-          return res.status(403).json({ message: "Нет прав" });
-        }
-
+      if (
+        groups.Department.includes(position) &&
+        departmentId !== requestedDepartmentId
+      ) {
+        return res.status(403).json({ message: 'Нет прав' })
       }
 
-      const query = req.query;
-      const limit = parseInt(query.limit);
-      const offset = parseInt(query.offset);
-      const filter = query.filter;
+      if (
+        groups.Faculty.includes(position) &&
+        facultyId !== requestedFacultyId
+      ) {
+        return res.status(403).json({ message: 'Нет прав' })
+      }
+
+      const query = req.query
+      const limit = parseInt(query.limit)
+      const offset = parseInt(query.offset)
+      const filter = query.filter
 
       const { count, rows } = await User.findAndCountAll({
         limit,
         offset,
         where: {
-          department: id,
+          department: requestedDepartmentId,
           [Op.or]: [
             {
               login: { [Op.substring]: filter },
@@ -120,48 +117,45 @@ module.exports = {
             {
               surname: { [Op.substring]: filter },
             },
-          ]
-        }
-      });
-
+          ],
+        },
+      })
 
       for (let i = 0; i < rows.length; i++) {
-        rows[i] = await collectUserInfo(rows[i]);
+        rows[i] = await collectUserInfo(rows[i])
       }
 
-      res.status(200).send({ users: rows, count });
+      res.status(200).send({ users: rows, count })
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ message: error.message })
     }
   },
 
-  async findOne(req, res) {
+  async get(req, res) {
     try {
+      const id = parseInt(req.params.id)
 
-      const id = req.query.id;
+      const user = await User.findByPk(id)
 
-      const user = await User.findByPk(id);
+      const userInfo = await collectUserInfo(user)
 
-      const userInfo = await collectUserInfo(user);
-
-      res.status(200).send(userInfo);
+      res.status(200).send(userInfo)
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ message: error.message })
     }
   },
 
   async delete(req, res) {
     try {
-
-      const id = req.query.id;
+      const id = req.query.id
 
       await User.destroy({
-        where: { id }
-      });
+        where: { id },
+      })
 
-      res.status(200).send({ message: 'Пользователь успешно удален' });
+      res.status(200).send({ message: 'Пользователь успешно удален' })
     } catch (error) {
-      res.status(400).send({ message: error.message });
+      res.status(400).send({ message: error.message })
     }
   },
-};
+}

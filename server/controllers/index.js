@@ -7,4 +7,4 @@ module.exports = {
   academicDegrees: require('./academicDegrees.controller'),
   academicRangs: require('./academicRangs.controller'),
   faculties: require('./faculties.controller'),
-};  
+}
