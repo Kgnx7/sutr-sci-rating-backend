@@ -1,28 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const groups = require('../utils/groups')
 
 const { academicDegrees } = require('../controllers')
 
-const { isAuthenticated, inGroup } = require('../middleware')
+const { isAuthenticated } = require('../middleware')
 
-router.get(
-  '/list',
-  isAuthenticated,
-  inGroup(groups.University),
-  academicDegrees.list
-)
-router.post(
-  '/edit',
-  isAuthenticated,
-  inGroup(groups.University),
-  academicDegrees.edit
-)
-router.post(
-  '/create',
-  isAuthenticated,
-  inGroup(groups.University),
-  academicDegrees.create
-)
+router.get('/list', isAuthenticated, academicDegrees.list)
+router.get('/delete/:id', isAuthenticated, academicDegrees.delete)
+router.post('/edit/:id', isAuthenticated, academicDegrees.edit)
+router.post('/create', isAuthenticated, academicDegrees.create)
 
 module.exports = router

@@ -1,16 +1,18 @@
-const { User, Department } = require('../models')
-const { editReq } = require('../utils/dataSchemas/common')
+const { User } = require('../models')
 const { sequelize, Sequelize } = require('../models')
-const collectUserInfo = require('../utils/queries/collectUserInfo')
 const Op = Sequelize.Op
 const groups = require('../utils/groups')
+const castUserInfo = require('../utils/castUserInfo')
+const getUser = require('../utils/queries/getUser')
 
 module.exports = {
   async create(req, res) {
     try {
       const user = await User.create(req.body)
 
-      res.status(201).send(user)
+      const userInfo = castUserInfo(user)
+
+      res.status(201).send(userInfo)
     } catch (error) {
       res.status(400).send({ message: error })
     }
@@ -18,23 +20,17 @@ module.exports = {
 
   async edit(req, res) {
     try {
-      const isReqBodyCorrect = await editReq.isValid(req.body)
+      const id = req.params.id
 
-      if (!isReqBodyCorrect) {
-        throw new Error('Некорректный запрос')
-      }
-
-      const { id, data } = req.body
-
-      await User.update(data, {
+      await User.update(req.body, {
         where: { id },
       })
 
       let updatedUser = await User.findByPk(id)
 
-      updatedUser = await collectUserInfo(updatedUser)
+      const userInfo = castUserInfo(updatedUser)
 
-      res.status(200).send(updatedUser)
+      res.status(200).send(userInfo)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -66,7 +62,7 @@ module.exports = {
       })
 
       for (let i = 0; i < rows.length; i++) {
-        rows[i] = await collectUserInfo(rows[i])
+        rows[i] = castUserInfo(rows[i])
       }
 
       res.status(200).send({ users: rows, count })
@@ -75,6 +71,7 @@ module.exports = {
     }
   },
 
+  // FIXMI: доделать
   async listByDepartment(req, res) {
     try {
       const { position, departmentId, facultyId } = req.user
@@ -83,19 +80,19 @@ module.exports = {
       const requestedFacultyId = parseInt(params.facultyId)
       const requestedDepartmentId = parseInt(params.departmentId)
 
-      if (
-        groups.Department.includes(position) &&
-        departmentId !== requestedDepartmentId
-      ) {
-        return res.status(403).json({ message: 'Нет прав' })
-      }
+      // if (
+      //   groups.Department.includes(position) &&
+      //   departmentId !== requestedDepartmentId
+      // ) {
+      //   return res.status(403).json({ message: 'Нет прав' })
+      // }
 
-      if (
-        groups.Faculty.includes(position) &&
-        facultyId !== requestedFacultyId
-      ) {
-        return res.status(403).json({ message: 'Нет прав' })
-      }
+      // if (
+      //   groups.Faculty.includes(position) &&
+      //   facultyId !== requestedFacultyId
+      // ) {
+      //   return res.status(403).json({ message: 'Нет прав' })
+      // }
 
       const query = req.query
       const limit = parseInt(query.limit)
@@ -122,7 +119,7 @@ module.exports = {
       })
 
       for (let i = 0; i < rows.length; i++) {
-        rows[i] = await collectUserInfo(rows[i])
+        rows[i] = castUserInfo(rows[i])
       }
 
       res.status(200).send({ users: rows, count })
@@ -135,9 +132,9 @@ module.exports = {
     try {
       const id = parseInt(req.params.id)
 
-      const user = await User.findByPk(id)
+      const user = await getUser('id', id)
 
-      const userInfo = await collectUserInfo(user)
+      const userInfo = castUserInfo(user)
 
       res.status(200).send(userInfo)
     } catch (error) {
@@ -147,7 +144,7 @@ module.exports = {
 
   async delete(req, res) {
     try {
-      const id = req.query.id
+      const id = req.params.id
 
       await User.destroy({
         where: { id },

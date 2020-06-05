@@ -1,7 +1,6 @@
 const { Faculty, Department } = require('../models')
 const collectFacultyInfo = require('../utils/queries/collectFacultyInfo')
 const collectDepartmentInfo = require('../utils/queries/collectDepartmentInfo')
-const { editReq } = require('../utils/dataSchemas/common')
 const groups = require('../utils/groups')
 
 module.exports = {

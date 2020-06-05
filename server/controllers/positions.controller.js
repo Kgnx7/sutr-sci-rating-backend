@@ -1,5 +1,4 @@
 const { Position } = require('../models')
-const { editReq } = require('../utils/dataSchemas/common')
 
 module.exports = {
   async list(req, res) {
@@ -24,21 +23,29 @@ module.exports = {
 
   async edit(req, res) {
     try {
-      const isReqBodyCorrect = await editReq.isValid(req.body)
+      const { id } = req.params
 
-      if (!isReqBodyCorrect) {
-        throw new Error('Некорректный запрос')
-      }
-
-      const { id, data } = req.body
-
-      await Position.update(data, {
+      await Position.update(req.body, {
         where: { id },
       })
 
       const updatedPosition = await Position.findByPk(id)
 
       res.status(200).send(updatedPosition)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id
+
+      await Position.destroy({
+        where: { id },
+      })
+
+      res.status(200).send({ message: 'Должность успешно удалена' })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

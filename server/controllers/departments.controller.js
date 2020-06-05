@@ -1,17 +1,11 @@
-const { Department, User } = require('../models')
-const { editReq } = require('../utils/dataSchemas/common')
+const { Department } = require('../models')
 const collectDepartmentInfo = require('../utils/queries/collectDepartmentInfo')
-const collectUserInfo = require('../utils/queries/collectUserInfo')
 const groups = require('../utils/groups')
 
 module.exports = {
   async list(req, res) {
     try {
       const departments = await Department.findAll()
-
-      for (let i = 0; i < departments.length; i++) {
-        departments[i] = await collectDepartmentInfo(departments[i])
-      }
 
       res.status(200).send(departments)
     } catch (error) {
@@ -88,7 +82,7 @@ module.exports = {
       await Department.update(data, {
         where: { id },
       })
-
+      
       let updatedDepartment = await Department.findByPk(id)
 
       updatedDepartment = await collectDepartmentInfo(updatedDepartment)
@@ -101,9 +95,9 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const Department = await Department.create(req.body)
+      const department = await Department.create(req.body)
 
-      res.status(201).send(Department)
+      res.status(201).send(department)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

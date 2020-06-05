@@ -1,6 +1,6 @@
 const passport = require('passport')
 const { User } = require('../models')
-const collectUserInfo = require('../utils/queries/collectUserInfo')
+const castUserInfo = require('../utils/castUserInfo')
 
 exports.login = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
@@ -17,7 +17,9 @@ exports.login = (req, res, next) => {
         return next(err)
       }
 
-      res.json(user)
+      const userInfo = castUserInfo(user)
+
+      res.json(userInfo)
     })
   })(req, res)
 }
@@ -25,18 +27,4 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res) => {
   req.logout()
   res.end()
-}
-
-exports.getUser = async (req, res) => {
-  try {
-    const userId = req.session.passport.user
-
-    const user = await User.findByPk(userId)
-
-    const userInfo = await collectUserInfo(user)
-
-    res.json(userInfo)
-  } catch (error) {
-    res.status(400).send({ message: error.message })
-  }
 }

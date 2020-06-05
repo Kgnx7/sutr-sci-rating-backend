@@ -1,5 +1,6 @@
 module.exports = {
-  isAuthenticated: require('../middleware/isAuthenticated'),
-  hasRole: require('../middleware/hasRole'),
-  inGroup: require('../middleware/inGroup'),
+  isAuthenticated: require('./isAuthenticated'),
+  hasRole: require('./hasRole'),
+  inGroup: require('./inGroup'),
+  checkAccess: require('./checkAccess'),
 }

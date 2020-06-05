@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      accessGroupId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       surname: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -25,23 +29,23 @@ module.exports = (sequelize, DataTypes) => {
       patronymic: {
         type: DataTypes.STRING,
       },
-      department: {
+      departmentId: {
         type: DataTypes.INTEGER,
         // allowNull: false
       },
-      position: {
+      positionId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      academicDegree: {
+      academicDegreeId: {
         type: DataTypes.INTEGER,
         // allowNull: false
       },
-      academicRank: {
+      academicRankId: {
         type: DataTypes.INTEGER,
         // allowNull: false
       },
-      staff: {
+      staffId: {
         type: DataTypes.INTEGER,
         // allowNull: false
       },
@@ -58,9 +62,9 @@ module.exports = (sequelize, DataTypes) => {
       yearOfBirth: {
         type: DataTypes.INTEGER,
       },
-      SNILS4: {
-        type: DataTypes.BIGINT,
-      },
+      // SNILS4ID: {
+      //   type: DataTypes.BIGINT,
+      // },
     },
     {
       indexes: [
@@ -73,7 +77,41 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   User.associate = (models) => {
-    // associations
+    User.belongsTo(models.Position, {
+      foreignKey: 'positionId',
+      targetKey: 'id',
+      as: 'position',
+    })
+
+    User.belongsTo(models.Department, {
+      foreignKey: 'departmentId',
+      targetKey: 'id',
+      as: 'department',
+    })
+
+    User.belongsTo(models.AccessGroup, {
+      foreignKey: 'accessGroupId',
+      targetKey: 'id',
+      as: 'accessGroup',
+    })
+
+    User.belongsTo(models.AcademicDegree, {
+      foreignKey: 'academicDegreeId',
+      targetKey: 'id',
+      as: 'academicDegree',
+    })
+
+    User.belongsTo(models.AcademicRank, {
+      foreignKey: 'academicRankId',
+      targetKey: 'id',
+      as: 'academicRank',
+    })
+
+    User.belongsTo(models.Staff, {
+      foreignKey: 'staffId',
+      targetKey: 'id',
+      as: 'staff',
+    })
   }
 
   User.prototype.validPassword = function (password) {
