@@ -3,13 +3,13 @@ const router = express.Router()
 
 const { faculties } = require('../controllers')
 
-const { isAuthenticated } = require('../middleware')
+const { isAuthenticated, checkAccess } = require('../middleware')
 
-router.get('/list', isAuthenticated, faculties.list)
-router.get('/get/:id', isAuthenticated, faculties.get)
-router.get('/delete/:id', isAuthenticated, faculties.delete)
-router.post('/edit/:id', isAuthenticated, faculties.edit)
-router.post('/create', isAuthenticated, faculties.create)
+router.get('/list', isAuthenticated, checkAccess('list', 'faculties'), faculties.list)
+router.get('/get/:id', isAuthenticated, checkAccess('get', 'faculties'), faculties.get)
+router.get('/delete/:id', isAuthenticated, checkAccess('delete', 'faculties'), faculties.delete)
+router.post('/edit/:id', isAuthenticated, checkAccess('edit', 'faculties'), faculties.edit)
+router.post('/create', isAuthenticated, checkAccess('create', 'faculties'), faculties.create)
 
 // router.get(
 //   '/:facultyId/departments',

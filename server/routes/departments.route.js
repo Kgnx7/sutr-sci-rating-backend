@@ -3,11 +3,31 @@ const router = express.Router()
 
 const { departments } = require('../controllers')
 
-const { isAuthenticated } = require('../middleware')
+const { isAuthenticated, checkAccess } = require('../middleware')
 
-router.get('/list', isAuthenticated, departments.list)
-router.get('/delete/:id', isAuthenticated, departments.delete)
-router.post('/edit/:id', isAuthenticated, departments.edit)
-router.post('/create', isAuthenticated, departments.create)
+router.get(
+  '/list',
+  isAuthenticated,
+  checkAccess('list', 'departments'),
+  departments.list
+)
+router.get(
+  '/delete/:id',
+  isAuthenticated,
+  checkAccess('delete', 'departments'),
+  departments.delete
+)
+router.post(
+  '/edit/:id',
+  isAuthenticated,
+  checkAccess('edit', 'departments'),
+  departments.edit
+)
+router.post(
+  '/create',
+  isAuthenticated,
+  checkAccess('create', 'departments'),
+  departments.create
+)
 
 module.exports = router

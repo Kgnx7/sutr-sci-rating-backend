@@ -13,9 +13,9 @@ module.exports = {
 
   async edit(req, res) {
     try {
-      const { id, data } = req.body
+      const { id } = req.params
 
-      await AccessGroup.update(data, {
+      await AccessGroup.update(req.body, {
         where: { id },
       })
 
@@ -39,7 +39,7 @@ module.exports = {
 
   async delete(req, res) {
     try {
-      const id = req.query.id
+      const { id } = req.params
 
       await AccessGroup.destroy({ where: id })
 

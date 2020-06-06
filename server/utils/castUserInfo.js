@@ -1,20 +1,12 @@
 module.exports = function castUserInfo(user) {
   try {
     const finalUser = {
+      id: user.id,
       login: user.login,
       displayName: [user.surname, user.name, user.patronymic].join(' ').trim(),
-      position: {
-        id: user.positionId,
-        data: user.position,
-      },
-      department: {
-        id: user.departmentId,
-        data: user.department,
-      },
-      accessGroup: {
-        id: user.accessGroupId,
-        data: user.accessGroup,
-      },
+      position: user.position && user.position.title,
+      department: user.department && user.department.title,
+      accessGroup: user.accessGroup && user.accessGroup.title,
     }
 
     return finalUser

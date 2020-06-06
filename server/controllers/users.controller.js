@@ -4,6 +4,7 @@ const Op = Sequelize.Op
 const groups = require('../utils/groups')
 const castUserInfo = require('../utils/castUserInfo')
 const getUser = require('../utils/queries/getUser')
+const getUsers = require('../utils/queries/getUsers')
 
 module.exports = {
   async create(req, res) {
@@ -43,29 +44,11 @@ module.exports = {
       const offset = parseInt(query.offset)
       const filter = query.filter
 
-      const { count, rows } = await User.findAndCountAll({
-        limit,
-        offset,
-        where: {
-          [Op.or]: [
-            {
-              login: { [Op.substring]: filter },
-            },
-            {
-              name: { [Op.substring]: filter },
-            },
-            {
-              surname: { [Op.substring]: filter },
-            },
-          ],
-        },
-      })
+      const { count, rows } = await getUsers(limit, offset, filter)
 
-      for (let i = 0; i < rows.length; i++) {
-        rows[i] = castUserInfo(rows[i])
-      }
+      const users = rows.map((row) => castUserInfo(row))
 
-      res.status(200).send({ users: rows, count })
+      res.status(200).send({ users, count })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -118,9 +101,9 @@ module.exports = {
         },
       })
 
-      for (let i = 0; i < rows.length; i++) {
-        rows[i] = castUserInfo(rows[i])
-      }
+      // for (let i = 0; i < rows.length; i++) {
+      //   rows[i] = castUserInfo(rows[i])
+      // }
 
       res.status(200).send({ users: rows, count })
     } catch (error) {

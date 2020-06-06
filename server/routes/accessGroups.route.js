@@ -3,11 +3,31 @@ const router = express.Router()
 
 const { accessGroups } = require('../controllers')
 
-const { isAuthenticated } = require('../middleware')
+const { isAuthenticated, checkAccess } = require('../middleware')
 
-router.get('/list', isAuthenticated, accessGroups.list)
-router.get('/delete', isAuthenticated, accessGroups.delete)
-router.post('/edit', isAuthenticated, accessGroups.edit)
-router.post('/create', isAuthenticated, accessGroups.create)
+router.get(
+  '/list',
+  isAuthenticated,
+  checkAccess('list', 'accessGroups'),
+  accessGroups.list
+)
+router.get(
+  '/delete/:id',
+  isAuthenticated,
+  checkAccess('delete', 'accessGroups'),
+  accessGroups.delete
+)
+router.post(
+  '/edit/:id',
+  isAuthenticated,
+  checkAccess('edit', 'accessGroups'),
+  accessGroups.edit
+)
+router.post(
+  '/create',
+  isAuthenticated,
+  checkAccess('create', 'accessGroups'),
+  accessGroups.create
+)
 
 module.exports = router
