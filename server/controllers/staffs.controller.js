@@ -13,9 +13,9 @@ module.exports = {
 
   async edit(req, res) {
     try {
-      const { id, data } = req.body
+      const { id } = req.params
 
-      await Staff.update(data, {
+      await Staff.update(req.body, {
         where: { id },
       })
 
@@ -32,6 +32,20 @@ module.exports = {
       const staff = await Staff.create(req.body)
 
       res.status(201).send(staff)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params
+
+      await Staff.destroy({
+        where: { id },
+      })
+
+      res.status(200).send({ message: 'Пользователь успешно удален' })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

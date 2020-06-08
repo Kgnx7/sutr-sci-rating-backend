@@ -31,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       departmentId: {
         type: DataTypes.INTEGER,
-        // allowNull: false
       },
       positionId: {
         type: DataTypes.INTEGER,
@@ -39,19 +38,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       academicDegreeId: {
         type: DataTypes.INTEGER,
-        // allowNull: false
       },
       academicRankId: {
         type: DataTypes.INTEGER,
-        // allowNull: false
       },
       staffId: {
         type: DataTypes.INTEGER,
-        // allowNull: false
       },
       salaryRate: {
         type: DataTypes.FLOAT,
-        // allowNull: false
       },
       phone: {
         type: DataTypes.STRING,
@@ -62,9 +57,9 @@ module.exports = (sequelize, DataTypes) => {
       yearOfBirth: {
         type: DataTypes.INTEGER,
       },
-      // SNILS4ID: {
-      //   type: DataTypes.BIGINT,
-      // },
+      snils: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       indexes: [

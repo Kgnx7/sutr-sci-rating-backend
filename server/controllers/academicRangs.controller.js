@@ -13,11 +13,9 @@ module.exports = {
 
   async edit(req, res) {
     try {
-    
+      const { id } = req.params
 
-      const { id, data } = req.body
-
-      await AcademicDegree.update(data, {
+      await AcademicDegree.update(req.body, {
         where: { id },
       })
 
@@ -34,6 +32,20 @@ module.exports = {
       const academicRangs = await AcademicRank.create(req.body)
 
       res.status(201).send(academicRangs)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params
+
+      await AcademicRank.destroy({
+        where: { id },
+      })
+
+      res.status(201).send({ message: 'Запись успешно удалена' })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

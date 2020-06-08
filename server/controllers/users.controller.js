@@ -1,7 +1,7 @@
 const { User } = require('../models')
 const { sequelize, Sequelize } = require('../models')
 const Op = Sequelize.Op
-const groups = require('../utils/groups')
+const groups = require('../utils/constants/accessGroups')
 const castUserInfo = require('../utils/castUserInfo')
 const getUser = require('../utils/queries/getUser')
 const getUsers = require('../utils/queries/getUsers')
@@ -57,26 +57,7 @@ module.exports = {
   // FIXMI: доделать
   async listByDepartment(req, res) {
     try {
-      const { position, departmentId, facultyId } = req.user
-
-      const params = req.params
-      const requestedFacultyId = parseInt(params.facultyId)
-      const requestedDepartmentId = parseInt(params.departmentId)
-
-      // if (
-      //   groups.Department.includes(position) &&
-      //   departmentId !== requestedDepartmentId
-      // ) {
-      //   return res.status(403).json({ message: 'Нет прав' })
-      // }
-
-      // if (
-      //   groups.Faculty.includes(position) &&
-      //   facultyId !== requestedFacultyId
-      // ) {
-      //   return res.status(403).json({ message: 'Нет прав' })
-      // }
-
+      const { departmentId } = req.params
       const query = req.query
       const limit = parseInt(query.limit)
       const offset = parseInt(query.offset)
@@ -86,7 +67,7 @@ module.exports = {
         limit,
         offset,
         where: {
-          department: requestedDepartmentId,
+          departmentId: departmentId,
           [Op.or]: [
             {
               login: { [Op.substring]: filter },
@@ -100,10 +81,6 @@ module.exports = {
           ],
         },
       })
-
-      // for (let i = 0; i < rows.length; i++) {
-      //   rows[i] = castUserInfo(rows[i])
-      // }
 
       res.status(200).send({ users: rows, count })
     } catch (error) {
@@ -127,7 +104,7 @@ module.exports = {
 
   async delete(req, res) {
     try {
-      const id = req.params.id
+      const { id } = req.params
 
       await User.destroy({
         where: { id },

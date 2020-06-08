@@ -10,14 +10,6 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        accessGroupId: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            model: 'accessgroups',
-            key: 'id',
-          },
-        },
         login: {
           type: Sequelize.STRING,
           allowNull: false,
@@ -37,47 +29,6 @@ module.exports = {
         },
         patronymic: {
           type: Sequelize.STRING,
-          // allowNull: false
-        },
-        departmentId: {
-          type: Sequelize.INTEGER,
-          // allowNull: false,
-          references: {
-            model: 'departments',
-            key: 'id',
-          },
-        },
-        positionId: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            model: 'positions',
-            key: 'id',
-          },
-        },
-        academicDegreeId: {
-          type: Sequelize.INTEGER,
-          // allowNull: false
-          references: {
-            model: 'academicdegrees',
-            key: 'id',
-          },
-        },
-        academicRankId: {
-          type: Sequelize.INTEGER,
-          // allowNull: false
-          references: {
-            model: 'academicranks',
-            key: 'id',
-          },
-        },
-        staffId: {
-          type: Sequelize.INTEGER,
-          // allowNull: false
-          references: {
-            model: 'staffs',
-            key: 'id',
-          },
         },
         salaryRate: {
           type: Sequelize.FLOAT,
@@ -92,13 +43,9 @@ module.exports = {
         yearOfBirth: {
           type: Sequelize.INTEGER,
         },
-        // SNILS4ID: {
-        //   type: Sequelize.BIGINT,
-        //   references: {
-        //     model: 'academicranks',
-        //     key: 'id',
-        //   },
-        // },
+        snils: {
+          type: Sequelize.INTEGER,
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -120,7 +67,7 @@ module.exports = {
       throw error
     }
   },
-  down: (queryInterface, Sequelize) => {
+  down: async (queryInterface, Sequelize) => {
     return queryInterface.dropTable('users')
   },
 }

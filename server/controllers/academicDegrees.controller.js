@@ -11,11 +11,25 @@ module.exports = {
     }
   },
 
+  async delete(req, res) {
+    try {
+      const id = req.params.id
+
+      await AcademicDegree.destroy({
+        where: { id },
+      })
+
+      res.status(200).send({ message: 'Запись успешно удалена' })
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
   async edit(req, res) {
     try {
-      const { id, data } = req.body
+      const id = req.params.id
 
-      await AcademicDegree.update(data, {
+      await AcademicDegree.update(req.body, {
         where: { id },
       })
 

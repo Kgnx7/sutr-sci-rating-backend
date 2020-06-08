@@ -11,6 +11,14 @@ router.get(
   checkAccess('list', 'departments'),
   departments.list
 )
+
+router.get(
+  '/listByFaculty/:facultyId',
+  isAuthenticated,
+  checkAccess('listByFaculty', 'departments'),
+  departments.listByFaculty
+)
+
 router.get(
   '/delete/:id',
   isAuthenticated,
@@ -22,6 +30,12 @@ router.post(
   isAuthenticated,
   checkAccess('edit', 'departments'),
   departments.edit
+)
+router.get(
+  '/get/:id',
+  isAuthenticated,
+  checkAccess('get', 'departments'),
+  departments.get
 )
 router.post(
   '/create',

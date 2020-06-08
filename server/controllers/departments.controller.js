@@ -1,11 +1,12 @@
 const { Department } = require('../models')
-const collectDepartmentInfo = require('../utils/queries/collectDepartmentInfo')
-const groups = require('../utils/groups')
+const groups = require('../utils/constants/accessGroups')
+const getDepartment = require('../utils/queries/getDepartment')
+const { getAllDepartments } = require('../utils/queries/getDepartments')
 
 module.exports = {
   async list(req, res) {
     try {
-      const departments = await Department.findAll()
+      const departments = await getAllDepartments()
 
       res.status(200).send(departments)
     } catch (error) {
@@ -15,26 +16,13 @@ module.exports = {
 
   async listByFaculty(req, res) {
     try {
-      const requestedFacultyId = parseInt(req.params.facultyId)
-      const userFacultyId = req.user.facultyId
-      const userPosition = req.user.position
-
-      if (
-        groups.Faculty.includes(userPosition) &&
-        userFacultyId !== requestedFacultyId
-      ) {
-        return res.status(403).json({ message: 'Нет прав' })
-      }
+      const { facultyId } = req.params
 
       const departments = await Department.findAll({
         where: {
-          faculty: requestedFacultyId,
+          facultyId: facultyId,
         },
       })
-
-      for (let i = 0; i < departments.length; i++) {
-        departments[i] = await collectDepartmentInfo(departments[i])
-      }
 
       res.status(200).send(departments)
     } catch (error) {
@@ -44,26 +32,11 @@ module.exports = {
 
   async get(req, res) {
     try {
-      const requestedFacultyId = parseInt(req.params.facultyId)
-      const requestedDepartmnetId = parseInt(req.params.departmentId)
-      const userFacultyId = req.user.facultyId
-      const userDepartmentId = req.user.departmentId
-      const userPosition = req.user.position
+      const { id } = req.params
 
-      if (
-        (groups.Faculty.includes(userPosition) &&
-          userFacultyId !== requestedFacultyId) ||
-        (groups.Department.includes(userPosition) &&
-          requestedDepartmnetId !== userDepartmentId)
-      ) {
-        return res.status(403).json({ message: 'Нет прав' })
-      }
+      const department = await Department.findByPk(id)
 
-      const department = await Department.findByPk(requestedDepartmnetId)
-
-      const departmentInfo = await collectDepartmentInfo(department)
-
-      res.status(200).send(departmentInfo)
+      res.status(200).send(department)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -71,21 +44,13 @@ module.exports = {
 
   async edit(req, res) {
     try {
-      const isReqBodyCorrect = await editReq.isValid(req.body)
+      const { id } = req.params
 
-      if (!isReqBodyCorrect) {
-        throw new Error('Некорректный запрос')
-      }
-
-      const { id, data } = req.body
-
-      await Department.update(data, {
+      await Department.update(req.body, {
         where: { id },
       })
-      
-      let updatedDepartment = await Department.findByPk(id)
 
-      updatedDepartment = await collectDepartmentInfo(updatedDepartment)
+      let updatedDepartment = await Department.findByPk(id)
 
       res.status(200).send(updatedDepartment)
     } catch (error) {
@@ -100,6 +65,20 @@ module.exports = {
       res.status(201).send(department)
     } catch (error) {
       res.status(400).send({ message: error.message })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params
+
+      await Department.destroy({
+        where: { id },
+      })
+
+      res.status(200).send({ message: 'Кафедра успешно удалена' })
+    } catch (error) {
+      res.status(400).send({ message: error.message, error })
     }
   },
 }

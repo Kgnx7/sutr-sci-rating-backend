@@ -9,6 +9,7 @@ module.exports = async (user) => {
   switch (accessGroup.title) {
     case groups.Admin:
       can('list', 'users')
+      can('listByDepartment', 'users')
       can('delete', 'users')
       can('create', 'users')
       can('get', 'users')
@@ -35,11 +36,14 @@ module.exports = async (user) => {
       can('edit', 'academicRanks')
 
       can('list', 'departments')
+      can('listByFaculty', 'departments')
+      can('get', 'departments')
       can('delete', 'departments')
       can('create', 'departments')
       can('edit', 'departments')
 
       can('list', 'faculties')
+      can('get', 'faculties')
       can('delete', 'faculties')
       can('create', 'faculties')
       can('edit', 'faculties')
@@ -48,11 +52,8 @@ module.exports = async (user) => {
       can('delete', 'staffs')
       can('create', 'staffs')
       can('edit', 'staffs')
-      // can('listByFaculty', 'users')
-      // can('listByDepartment', 'users')
-      // can('listByDepartment', 'users')
       break
-    case groups.default:
+    case groups.University:
       break
   }
 

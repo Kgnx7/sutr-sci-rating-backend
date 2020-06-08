@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      dean: {
+      deanId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      AssistantDean: {
+      assistantDeanId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -32,7 +32,17 @@ module.exports = (sequelize, DataTypes) => {
     {}
   )
   Faculty.associate = function (models) {
-    // associations can be defined here
+    Faculty.belongsTo(models.User, {
+      foreignKey: 'deanId',
+      targetKey: 'id',
+      as: 'dean',
+    })
+
+    Faculty.belongsTo(models.User, {
+      foreignKey: 'assistantDeanId',
+      targetKey: 'id',
+      as: 'assistantDean',
+    })
   }
   return Faculty
 }

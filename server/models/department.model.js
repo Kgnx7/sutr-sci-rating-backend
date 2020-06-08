@@ -11,11 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      faculty: {
+      facultyId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      manager: {
+      managerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -34,10 +34,17 @@ module.exports = (sequelize, DataTypes) => {
   )
 
   Department.associate = (models) => {
-    // Department.hasMany(models.User, {
-    //   foreignKey: 'department',
-    //   sourceKey: 'id',
-    // })
+    Department.belongsTo(models.User, {
+      foreignKey: 'managerId',
+      sourceKey: 'id',
+      as: 'manager',
+    })
+
+    Department.belongsTo(models.Faculty, {
+      foreignKey: 'facultyId',
+      sourceKey: 'id',
+      as: 'faculty',
+    })
   }
 
   return Department
