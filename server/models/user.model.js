@@ -107,6 +107,8 @@ module.exports = (sequelize, DataTypes) => {
       targetKey: 'id',
       as: 'staff',
     })
+
+    // Product.belongsToMany(models., { through: 'RIDAuthor' })
   }
 
   User.prototype.validPassword = function (password) {

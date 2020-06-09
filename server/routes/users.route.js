@@ -9,7 +9,7 @@ router.get('/list', isAuthenticated, checkAccess('list', 'users'), users.list)
 router.get(
   '/listByDepartment/:departmentId',
   isAuthenticated,
-  checkAccess('list', 'users'),
+  checkAccess('listByDepartment', 'users'),
   users.listByDepartment
 )
 router.get(
