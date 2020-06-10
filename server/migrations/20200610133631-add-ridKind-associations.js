@@ -1,51 +1,38 @@
+'use strict'
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
+
     try {
       await queryInterface.addColumn(
-        'departments',
-        'facultyId',
+        'ridkinds',
+        'ridTypeId',
         {
           type: Sequelize.INTEGER,
           references: {
-            model: 'faculties',
+            model: 'ridtypes',
             key: 'id',
           },
         },
         { transaction }
       )
-      await queryInterface.addColumn(
-        'departments',
-        'managerId',
-        {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'users',
-            key: 'id',
-          },
-        },
-        { transaction }
-      )
-      await transaction.commit()
     } catch (error) {
       await transaction.rollback()
-      throw err
+      throw error
     }
   },
 
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.removeColumn('departments', 'facultyId', {
-        transaction,
-      })
-      await queryInterface.removeColumn('departments', 'managerId', {
+      await queryInterface.removeColumn('ridkinds', 'ridTypeId', {
         transaction,
       })
       await transaction.commit()
-    } catch (err) {
+    } catch (error) {
       await transaction.rollback()
-      throw err
+      throw error
     }
   },
 }

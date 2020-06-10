@@ -7,7 +7,6 @@ module.exports = {
         'deanId',
         {
           type: Sequelize.INTEGER,
-          allowNull: false,
           references: {
             model: 'users',
             key: 'id',
@@ -27,9 +26,10 @@ module.exports = {
         },
         { transaction }
       )
+      await transaction.commit()
     } catch (error) {
       await transaction.rollback()
-      throw err
+      throw error
     }
   },
 
@@ -43,9 +43,9 @@ module.exports = {
         transaction,
       })
       await transaction.commit()
-    } catch (err) {
+    } catch (error) {
       await transaction.rollback()
-      throw err
+      throw error
     }
   },
 }

@@ -1,21 +1,17 @@
 'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('ridfiles', {
+    return queryInterface.createTable('statuses', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      filePath: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      // ridId: {
-      //   type: Sequelize.INTEGER,
-      //   allowNull: false,
-      // },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -27,6 +23,6 @@ module.exports = {
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('ridfiles')
+    return queryInterface.dropTable('statuses')
   },
 }
