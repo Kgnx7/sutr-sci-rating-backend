@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const RIDAuthor = sequelize.define(
+  const RidAuthor = sequelize.define(
     'RidAuthor',
     {
       authorId: {
@@ -27,8 +27,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   )
 
-  RIDAuthor.associate = function (models) {
+  RidAuthor.associate = function (models) {
     // associations can be defined here
   }
-  return RIDAuthor
+  return RidAuthor
 }

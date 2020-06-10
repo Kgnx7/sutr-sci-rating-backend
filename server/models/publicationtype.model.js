@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const publicationType = sequelize.define(
+  const PublicationType = sequelize.define(
     'PublicationType',
     {
       title: {
@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   )
-  publicationType.associate = function (models) {
+  PublicationType.associate = function (models) {
     // associations can be defined here
   }
-  return publicationType
+  return PublicationType
 }

@@ -108,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'staff',
     })
 
-    // Product.belongsToMany(models., { through: 'RIDAuthor' })
+    User.belongsToMany(models.Nir, { through: 'ridauthors' })
   }
 
   User.prototype.validPassword = function (password) {

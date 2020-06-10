@@ -1,6 +1,6 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const nirKind = sequelize.define(
+  const NirKind = sequelize.define(
     'NirKind',
     {
       title: {
