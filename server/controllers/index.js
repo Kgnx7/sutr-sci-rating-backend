@@ -3,9 +3,9 @@ module.exports = {
   users: require('./users.controller'),
   positions: require('./positions.controller'),
   departments: require('./departments.controller'),
-  staffs: require('./staffs.controller'),
-  academicDegrees: require('./academicDegrees.controller'),
-  academicRangs: require('./academicRangs.controller'),
+  academicRanks: require('./academicRanks.controller'),
   faculties: require('./faculties.controller'),
   accessGroups: require('./accessGroups.controller'),
+  employmentTypes: require('./employmentTypes.controller'),
+  specialties: require('./specialties.controller'),
 }

@@ -1,7 +1,6 @@
-const { User } = require('../models')
+const { User, UserStatus, Position } = require('../models')
 const { sequelize, Sequelize } = require('../models')
 const Op = Sequelize.Op
-const groups = require('../utils/constants/accessGroups')
 const castUserInfo = require('../utils/castUserInfo')
 const getUser = require('../utils/queries/getUser')
 const getUsers = require('../utils/queries/getUsers')
@@ -54,7 +53,6 @@ module.exports = {
     }
   },
 
-  // FIXMI: доделать
   async listByDepartment(req, res) {
     try {
       const { departmentId } = req.params
@@ -63,23 +61,35 @@ module.exports = {
       const offset = parseInt(query.offset)
       const filter = query.filter
 
-      const { count, rows } = await User.findAndCountAll({
+      const { count, rows } = await UserStatus.findAndCountAll({
         limit,
         offset,
         where: {
           departmentId: departmentId,
-          [Op.or]: [
-            {
-              login: { [Op.substring]: filter },
-            },
-            {
-              name: { [Op.substring]: filter },
-            },
-            {
-              surname: { [Op.substring]: filter },
-            },
-          ],
+          // [Op.or]: [
+          //   {
+          //     login: { [Op.substring]: filter },
+          //   },
+          //   {
+          //     name: { [Op.substring]: filter },
+          //   },
+          //   {
+          //     surname: { [Op.substring]: filter },
+          //   },
+          // ],
         },
+        include: [
+          {
+            model: User,
+            attributes: ['name', 'surname', 'surname'],
+            as: 'user',
+          },
+          {
+            model: Position,
+            attributes: ['title'],
+            as: 'position',
+          },
+        ],
       })
 
       res.status(200).send({ users: rows, count })

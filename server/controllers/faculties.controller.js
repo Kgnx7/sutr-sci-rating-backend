@@ -1,5 +1,4 @@
 const { Faculty, User } = require('../models')
-const groups = require('../utils/constants/accessGroups')
 const getFaculty = require('../utils/queries/getFaculty')
 const getFaculties = require('../utils/queries/getFaculties')
 
@@ -28,32 +27,7 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const data = req.body
-
-      const deanLogin = data.dean
-      const assistantDeanLogin = data.assistantDean
-
-      const dean = await User.findOne({
-        attributes: ['id'],
-        where: {
-          login: deanLogin,
-        },
-      })
-
-      const assistantDean = await User.findOne({
-        attributes: ['id'],
-        where: {
-          login: assistantDeanLogin,
-        },
-      })
-
-      delete data.dean
-      delete data.assistantDean
-
-      data.deanId = dean.id
-      data.assistantDeanId = assistantDean.id
-
-      const faculty = await Faculty.create(data)
+      const faculty = await Faculty.create(req.body)
 
       res.status(201).send(faculty)
     } catch (error) {

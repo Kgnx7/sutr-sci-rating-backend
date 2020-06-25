@@ -1,4 +1,4 @@
-const { User, Department } = require('../../models')
+const { User, Department, Faculty } = require('../../models')
 
 module.exports = async (key, value) =>
   Department.findOne({
@@ -8,6 +8,11 @@ module.exports = async (key, value) =>
         model: User,
         attributes: ['name', 'surname', 'patronymic'],
         as: 'manager',
+      },
+      {
+        model: Faculty,
+        attributes: ['title', 'short'],
+        as: 'faculty',
       },
     ],
   })

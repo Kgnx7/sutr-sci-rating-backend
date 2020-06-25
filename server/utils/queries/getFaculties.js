@@ -11,7 +11,7 @@ module.exports = async () =>
       {
         model: User,
         attributes: ['name', 'surname', 'patronymic'],
-        as: 'assistantDean',
+        as: 'deanAssistant',
       },
     ],
   })

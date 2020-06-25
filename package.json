@@ -19,19 +19,19 @@
   },
   "homepage": "https://github.com/Kgnx7/sutr-sci-rating-backend#readme",
   "dependencies": {
-    "@casl/ability": "^4.1.4",
+    "@casl/ability": "^4.1.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "helmet": "^3.22.0",
+    "helmet": "^3.23.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.21.12",
+    "sequelize": "^5.21.13",
     "yup": "^0.29.1"
   },
   "devDependencies": {

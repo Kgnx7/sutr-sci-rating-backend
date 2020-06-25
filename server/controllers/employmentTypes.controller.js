@@ -1,11 +1,11 @@
-const { AccessGroup } = require('../models')
+const { EmploymentType } = require('../models')
 
 module.exports = {
   async list(req, res) {
     try {
-      const accessGroups = await AccessGroup.findAll()
+      const EmploymentTypes = await EmploymentType.findAll()
 
-      res.status(200).send(accessGroups)
+      res.status(200).send(EmploymentTypes)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -15,13 +15,13 @@ module.exports = {
     try {
       const { id } = req.params
 
-      await AccessGroup.update(req.body, {
+      await EmploymentType.update(req.body, {
         where: { id },
       })
 
-      const updatedAccessGroups = await AccessGroup.findByPk(id)
+      const updatedEmploymentType = await EmploymentType.findByPk(id)
 
-      res.status(200).send(updatedAccessGroups)
+      res.status(200).send(updatedEmploymentType)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -29,9 +29,9 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const accessGroup = await AccessGroup.create(req.body)
+      const employmentType = await EmploymentType.create(req.body)
 
-      res.status(201).send(accessGroup)
+      res.status(201).send(employmentType)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -41,9 +41,11 @@ module.exports = {
     try {
       const { id } = req.params
 
-      await AccessGroup.destroy({ where: id })
+      await EmploymentType.destroy({
+        where: { id },
+      })
 
-      res.status(200).send({ message: 'Группа доступа успешно удалена' })
+      res.status(200).send({ message: 'Запись успешно удалена' })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

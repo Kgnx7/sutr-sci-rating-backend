@@ -1,33 +1,33 @@
 const express = require('express')
 const router = express.Router()
 
-const { accessGroups } = require('../controllers')
+const { employmentTypes } = require('../controllers')
 
 const { isAuthenticated, checkAccess } = require('../middleware')
 
 router.get(
   '/list',
   isAuthenticated,
-  checkAccess('list', 'accessGroups'),
-  accessGroups.list
+  checkAccess('list', 'employmentTypes'),
+  employmentTypes.list
 )
 // router.get(
 //   '/delete/:id',
 //   isAuthenticated,
-//   checkAccess('delete', 'accessGroups'),
-//   accessGroups.delete
+//   checkAccess('delete', 'employmentTypes'),
+//   employmentTypes.delete
 // )
 // router.post(
 //   '/edit/:id',
 //   isAuthenticated,
-//   checkAccess('edit', 'accessGroups'),
-//   accessGroups.edit
+//   checkAccess('edit', 'employmentTypes'),
+//   employmentTypes.edit
 // )
 // router.post(
 //   '/create',
 //   isAuthenticated,
-//   checkAccess('create', 'accessGroups'),
-//   accessGroups.create
+//   checkAccess('create', 'employmentTypes'),
+//   employmentTypes.create
 // )
 
 module.exports = router

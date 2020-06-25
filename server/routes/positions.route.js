@@ -11,23 +11,23 @@ router.get(
   checkAccess('list', 'positions'),
   positions.list
 )
-router.get(
-  '/delete/:id',
-  isAuthenticated,
-  checkAccess('delete', 'positions'),
-  positions.delete
-)
-router.post(
-  '/create',
-  isAuthenticated,
-  checkAccess('create', 'positions'),
-  positions.create
-)
-router.post(
-  '/edit/:id',
-  isAuthenticated,
-  checkAccess('edit', 'positions'),
-  positions.edit
-)
+// router.get(
+//   '/delete/:id',
+//   isAuthenticated,
+//   checkAccess('delete', 'positions'),
+//   positions.delete
+// )
+// router.post(
+//   '/create',
+//   isAuthenticated,
+//   checkAccess('create', 'positions'),
+//   positions.create
+// )
+// router.post(
+//   '/edit/:id',
+//   isAuthenticated,
+//   checkAccess('edit', 'positions'),
+//   positions.edit
+// )
 
 module.exports = router

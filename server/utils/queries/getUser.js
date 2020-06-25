@@ -3,44 +3,80 @@ const {
   Position,
   Department,
   AccessGroup,
-  AcademicDegree,
   AcademicRank,
-  Staff,
+  EmploymentType,
+  UserStatus,
+  Specialty,
+  DegreeType,
+  AcademicDegree,
 } = require('../../models')
 
-module.exports = async (key, value) =>
-  User.findOne({
+module.exports = async (key, value) => {
+  const user = await User.findOne({
     where: { [key]: value },
     include: [
-      {
-        model: Position,
-        attributes: ['title'],
-        as: 'position',
-      },
-      {
-        model: Department,
-        attributes: ['title'],
-        as: 'department',
-      },
       {
         model: AccessGroup,
         attributes: ['title'],
         as: 'accessGroup',
       },
       {
-        model: AcademicDegree,
-        attributes: ['title'],
-        as: 'academicDegree',
-      },
-      {
         model: AcademicRank,
         attributes: ['title'],
         as: 'academicRank',
       },
-      {
-        model: Staff,
-        attributes: ['title'],
-        as: 'staff',
-      },
     ],
   })
+
+  let states = {}
+  let academicDegrees = {}
+
+  if (user) {
+    states = await UserStatus.findAll({
+      where: {
+        userId: user.id,
+      },
+      attributes: ['salaryRate'],
+      include: [
+        {
+          model: Position,
+          attributes: ['title'],
+          as: 'position',
+        },
+        {
+          model: Department,
+          attributes: ['title'],
+          as: 'department',
+        },
+        {
+          model: EmploymentType,
+          attributes: ['title'],
+          as: 'employmentType',
+        },
+      ],
+    })
+
+    academicDegrees = await AcademicDegree.findAll({
+      whwre: {
+        userId: user.id,
+      },
+      include: [
+        {
+          model: Specialty,
+          attributes: ['title'],
+          as: 'specialty',
+        },
+        {
+          model: DegreeType,
+          attributes: ['title'],
+          as: 'degreeType',
+        },
+      ],
+    })
+  }
+
+  user.states = states
+  user.academicDegrees = academicDegrees
+
+  return user
+}

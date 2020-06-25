@@ -1,28 +1,14 @@
 const { Department } = require('../models')
 const groups = require('../utils/constants/accessGroups')
 const getDepartment = require('../utils/queries/getDepartment')
-const { getAllDepartments } = require('../utils/queries/getDepartments')
+const { getDepartments } = require('../utils/queries/getDepartments')
 
 module.exports = {
   async list(req, res) {
     try {
-      const departments = await getAllDepartments()
+      const facultyId = req.query.facultyId
 
-      res.status(200).send(departments)
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-  },
-
-  async listByFaculty(req, res) {
-    try {
-      const { facultyId } = req.params
-
-      const departments = await Department.findAll({
-        where: {
-          facultyId: facultyId,
-        },
-      })
+      const departments = await getDepartments(facultyId)
 
       res.status(200).send(departments)
     } catch (error) {
@@ -34,7 +20,7 @@ module.exports = {
     try {
       const { id } = req.params
 
-      const department = await Department.findByPk(id)
+      const department = await getDepartment('id', id)
 
       res.status(200).send(department)
     } catch (error) {

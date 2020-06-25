@@ -10,77 +10,76 @@ module.exports = async (user) => {
     case groups.Admin:
       can('list', 'users')
       can('listByDepartment', 'users')
-      can('delete', 'users')
-      can('create', 'users')
-      can('get', 'users')
-      can('edit', 'users')
-
-      can('list', 'positions')
-      can('delete', 'positions')
-      can('create', 'positions')
-      can('edit', 'positions')
-
-      can('list', 'accessGroups')
-      can('delete', 'accessGroups')
-      can('create', 'accessGroups')
-      can('edit', 'accessGroups')
-
-      can('list', 'academicDegrees')
-      can('delete', 'academicDegrees')
-      can('create', 'academicDegrees')
-      can('edit', 'academicDegrees')
-
-      can('list', 'academicRanks')
-      can('delete', 'academicRanks')
-      can('create', 'academicRanks')
-      can('edit', 'academicRanks')
-
-      can('list', 'departments')
-      can('listByFaculty', 'departments')
-      can('get', 'departments')
-      can('delete', 'departments')
-      can('create', 'departments')
-      can('edit', 'departments')
+      can('get', 'User')
 
       can('list', 'faculties')
-      can('get', 'faculties')
-      can('delete', 'faculties')
-      can('create', 'faculties')
-      can('edit', 'faculties')
+      can('get', 'Faculty')
 
-      can('list', 'staffs')
-      can('delete', 'staffs')
-      can('create', 'staffs')
-      can('edit', 'staffs')
+      can('list', 'faculties')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
+
+      break
+    case groups.ResearchDepartment:
+      can('list', 'users')
+      can('listByDepartment', 'users')
+      can('get', 'User')
+
+      can('list', 'faculties')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
+
       break
     case groups.University:
       can('list', 'users')
       can('listByDepartment', 'users')
-      can('get', 'users')
-      can('list', 'positions')
-      can('list', 'accessGroups')
-      can('list', 'academicDegrees')
-      can('list', 'academicRanks')
-      can('list', 'departments')
-      can('listByFaculty', 'departments')
-      can('get', 'departments')
+      can('get', 'User')
+
       can('list', 'faculties')
-      can('get', 'faculties')
-      can('list', 'staffs')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
+
       break
     case groups.Faculty:
-      // can('listByDepartment', 'Department', { id: user.departmentId })
-      // can('listByFaculty', 'Faculty', { managerId: user.id })
-      // can('get', 'Department', { id: user.departmentId })
+      can('list', 'users')
+      can('listByDepartment', 'users')
+      can('get', 'User')
+
+      can('get', 'Faculty')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
+
       break
     case groups.Department:
-      // can('listByDepartment', 'Department', { id: user.departmentId })
-      // can('listByFaculty', 'Faculty', { managerId: user.id })
-      // can('get', 'Department', { id: user.departmentId })
-      // can('get', 'Faculty', { managerId: user.id })
+      can('list', 'users')
+      can('listByDepartment', 'users')
+      can('get', 'User')
+
+      can('list', 'faculties')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
+
       break
     case groups.Worker:
-      can('get', 'User', { id: user.id })
+      can('get', 'User')
+      can('listByDepartment', 'users')
+      can('list', 'users')
+
+      can('list', 'faculties')
+      can('get', 'Faculty')
+
+      can('list', 'departments')
+      can('get', 'Department')
       break
   }
 

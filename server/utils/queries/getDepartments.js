@@ -1,24 +1,25 @@
-const { User, Department } = require('../../models')
+const { User, Department, Faculty } = require('../../models')
 
-exports.getAllDepartments = async () =>
-  Department.findAll({
+exports.getDepartments = async (facultyId) => {
+  const filter = {}
+
+  if (facultyId !== undefined) {
+    filter.facultyId = facultyId
+  }
+
+  return Department.findAll({
+    where: filter,
     include: [
       {
         model: User,
         attributes: ['name', 'surname', 'patronymic'],
         as: 'manager',
       },
-    ],
-  })
-
-exports.getDepartmentsByFaculty = async (facultyId) =>
-  Department.findAll({
-    where: { faculty },
-    include: [
       {
-        model: User,
-        attributes: ['name', 'surname', 'patronymic'],
-        as: 'manager',
+        model: Faculty,
+        attributes: ['title', 'short'],
+        as: 'faculty',
       },
     ],
   })
+}

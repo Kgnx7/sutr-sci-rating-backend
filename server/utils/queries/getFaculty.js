@@ -12,7 +12,7 @@ module.exports = async (key, value) =>
       {
         model: User,
         attributes: ['name', 'surname', 'patronymic'],
-        as: 'assistantDean',
+        as: 'deanAssistant',
       },
     ],
   })

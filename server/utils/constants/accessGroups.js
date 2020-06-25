@@ -4,5 +4,6 @@ const GROUPS = {
   Faculty: 'руководство факультета',
   Department: 'руководство кафедры',
   Worker: 'сотрудники',
+  ResearchDepartment: 'сотрудники УНИ',
 }
 module.exports = GROUPS

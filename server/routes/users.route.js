@@ -12,24 +12,25 @@ router.get(
   checkAccess('listByDepartment', 'users'),
   users.listByDepartment
 )
-router.get(
-  '/delete/:id',
-  isAuthenticated,
-  checkAccess('delete', 'users'),
-  users.delete
-)
-router.get('/get/:id', isAuthenticated, checkAccess('get', 'users'), users.get)
-router.post(
-  '/edit/:id',
-  isAuthenticated,
-  checkAccess('edit', 'users'),
-  users.edit
-)
-router.post(
-  '/create',
-  isAuthenticated,
-  checkAccess('create', 'users'),
-  users.create
-)
+router.get('/get/:id', isAuthenticated, checkAccess('get', 'User'), users.get)
+
+// router.get(
+//   '/delete/:id',
+//   isAuthenticated,
+//   checkAccess('delete', 'users'),
+//   users.delete
+// )
+// router.post(
+//   '/edit/:id',
+//   isAuthenticated,
+//   checkAccess('edit', 'users'),
+//   users.edit
+// )
+// router.post(
+//   '/create',
+//   isAuthenticated,
+//   checkAccess('create', 'users'),
+//   users.create
+// )
 
 module.exports = router

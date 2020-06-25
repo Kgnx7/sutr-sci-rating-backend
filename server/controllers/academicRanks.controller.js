@@ -1,11 +1,11 @@
-const { AccessGroup } = require('../models')
+const { AcademicRank } = require('../models')
 
 module.exports = {
   async list(req, res) {
     try {
-      const accessGroups = await AccessGroup.findAll()
+      const academicRanks = await AcademicRank.findAll()
 
-      res.status(200).send(accessGroups)
+      res.status(200).send(academicRanks)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -15,13 +15,13 @@ module.exports = {
     try {
       const { id } = req.params
 
-      await AccessGroup.update(req.body, {
+      await AcademicDegree.update(req.body, {
         where: { id },
       })
 
-      const updatedAccessGroups = await AccessGroup.findByPk(id)
+      const updatedAcademicRang = await AcademicRank.findByPk(id)
 
-      res.status(200).send(updatedAccessGroups)
+      res.status(200).send(updatedAcademicRang)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -29,9 +29,9 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const accessGroup = await AccessGroup.create(req.body)
+      const academicRanks = await AcademicRank.create(req.body)
 
-      res.status(201).send(accessGroup)
+      res.status(201).send(academicRanks)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
@@ -41,9 +41,11 @@ module.exports = {
     try {
       const { id } = req.params
 
-      await AccessGroup.destroy({ where: id })
+      await AcademicRank.destroy({
+        where: { id },
+      })
 
-      res.status(200).send({ message: 'Группа доступа успешно удалена' })
+      res.status(201).send({ message: 'Запись успешно удалена' })
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

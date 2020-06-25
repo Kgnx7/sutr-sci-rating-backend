@@ -1,13 +1,5 @@
-const {
-  User,
-  Position,
-  Department,
-  AccessGroup,
-  AcademicDegree,
-  AcademicRank,
-  Staff,
-} = require('../../models')
-const { sequelize, Sequelize } = require('../../models')
+const { User, AccessGroup, AcademicRank } = require('../../models')
+const { Sequelize } = require('../../models')
 const Op = Sequelize.Op
 
 module.exports = async (limit, offset, filter) =>
@@ -29,34 +21,14 @@ module.exports = async (limit, offset, filter) =>
     },
     include: [
       {
-        model: Position,
-        attributes: ['title'],
-        as: 'position',
-      },
-      {
-        model: Department,
-        attributes: ['title'],
-        as: 'department',
-      },
-      {
         model: AccessGroup,
         attributes: ['title'],
         as: 'accessGroup',
       },
       {
-        model: AcademicDegree,
-        attributes: ['title'],
-        as: 'academicDegree',
-      },
-      {
         model: AcademicRank,
         attributes: ['title'],
         as: 'academicRank',
-      },
-      {
-        model: Staff,
-        attributes: ['title'],
-        as: 'staff',
       },
     ],
   })

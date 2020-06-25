@@ -1,0 +1,41 @@
+'use strict'
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('userstatuses', {
+      userId: {
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      departmentId: {
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      positionId: {
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      employmentTypeId: {
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      salaryRate: {
+        type: Sequelize.FLOAT,
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    })
+  },
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('userstatuses')
+  },
+}
