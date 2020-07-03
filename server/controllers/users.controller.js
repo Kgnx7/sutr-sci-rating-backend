@@ -18,6 +18,16 @@ module.exports = {
     }
   },
 
+  async createUserStatus(req, res) {
+    try {
+      const userStatus = await UserStatus.create(req.body)
+
+      res.status(201).send(userStatus)
+    } catch (error) {
+      res.status(400).send({ message: error })
+    }
+  },
+
   async edit(req, res) {
     try {
       const id = req.params.id

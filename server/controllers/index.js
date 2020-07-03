@@ -8,4 +8,6 @@ module.exports = {
   accessGroups: require('./accessGroups.controller'),
   employmentTypes: require('./employmentTypes.controller'),
   specialties: require('./specialties.controller'),
+  degreeTypes: require('./degreeTypes.controller'),
+  academicDegrees: require('./academicDegrees.controller'),
 }

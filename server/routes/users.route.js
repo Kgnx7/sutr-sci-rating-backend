@@ -5,32 +5,39 @@ const { users } = require('../controllers')
 
 const { isAuthenticated, checkAccess } = require('../middleware')
 
-router.get('/list', isAuthenticated, checkAccess('list', 'users'), users.list)
+router.get('/list', isAuthenticated, checkAccess('list', 'User'), users.list)
 router.get(
   '/listByDepartment/:departmentId',
   isAuthenticated,
-  checkAccess('listByDepartment', 'users'),
+  checkAccess('listByDepartment', 'User'),
   users.listByDepartment
 )
+
 router.get('/get/:id', isAuthenticated, checkAccess('get', 'User'), users.get)
 
-// router.get(
-//   '/delete/:id',
-//   isAuthenticated,
-//   checkAccess('delete', 'users'),
-//   users.delete
-// )
-// router.post(
-//   '/edit/:id',
-//   isAuthenticated,
-//   checkAccess('edit', 'users'),
-//   users.edit
-// )
-// router.post(
-//   '/create',
-//   isAuthenticated,
-//   checkAccess('create', 'users'),
-//   users.create
-// )
+router.post(
+  '/create',
+  isAuthenticated,
+  checkAccess('create', 'User'),
+  users.create
+)
+router.post(
+  '/statuses/create',
+  isAuthenticated,
+  checkAccess('create', 'UserStatus'),
+  users.createUserStatus
+)
+router.post(
+  '/edit/:id',
+  isAuthenticated,
+  checkAccess('edit', 'User'),
+  users.edit
+)
+router.get(
+  '/delete/:id',
+  isAuthenticated,
+  checkAccess('delete', 'User'),
+  users.delete
+)
 
 module.exports = router

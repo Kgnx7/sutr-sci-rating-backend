@@ -11,41 +11,41 @@ module.exports = {
     }
   },
 
-  async edit(req, res) {
-    try {
-      const { id } = req.params
+  // async edit(req, res) {
+  //   try {
+  //     const { id } = req.params
 
-      await AccessGroup.update(req.body, {
-        where: { id },
-      })
+  //     await AccessGroup.update(req.body, {
+  //       where: { id },
+  //     })
 
-      const updatedAccessGroups = await AccessGroup.findByPk(id)
+  //     const updatedAccessGroups = await AccessGroup.findByPk(id)
 
-      res.status(200).send(updatedAccessGroups)
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-  },
+  //     res.status(200).send(updatedAccessGroups)
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message })
+  //   }
+  // },
 
-  async create(req, res) {
-    try {
-      const accessGroup = await AccessGroup.create(req.body)
+  // async create(req, res) {
+  //   try {
+  //     const accessGroup = await AccessGroup.create(req.body)
 
-      res.status(201).send(accessGroup)
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-  },
+  //     res.status(201).send(accessGroup)
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message })
+  //   }
+  // },
 
-  async delete(req, res) {
-    try {
-      const { id } = req.params
+  // async delete(req, res) {
+  //   try {
+  //     const { id } = req.params
 
-      await AccessGroup.destroy({ where: id })
+  //     await AccessGroup.destroy({ where: id })
 
-      res.status(200).send({ message: 'Группа доступа успешно удалена' })
-    } catch (error) {
-      res.status(400).send({ message: error.message })
-    }
-  },
+  //     res.status(200).send({ message: 'Группа доступа успешно удалена' })
+  //   } catch (error) {
+  //     res.status(400).send({ message: error.message })
+  //   }
+  // },
 }

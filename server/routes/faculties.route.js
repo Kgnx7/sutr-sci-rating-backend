@@ -8,7 +8,7 @@ const { isAuthenticated, checkAccess } = require('../middleware')
 router.get(
   '/list',
   isAuthenticated,
-  checkAccess('list', 'faculties'),
+  checkAccess('list', 'Faculty'),
   faculties.list
 )
 router.get(

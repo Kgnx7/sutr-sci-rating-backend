@@ -1,14 +1,32 @@
 const { Department } = require('../models')
 const groups = require('../utils/constants/accessGroups')
 const getDepartment = require('../utils/queries/getDepartment')
-const { getDepartments } = require('../utils/queries/getDepartments')
+const {
+  getDepartments,
+  getDepartmentsByFaculty,
+} = require('../utils/queries/getDepartments')
 
 module.exports = {
   async list(req, res) {
     try {
-      const facultyId = req.query.facultyId
+      const query = req.query
+      const limit = parseInt(query.limit)
+      const offset = parseInt(query.offset)
+      const filter = query.filter
 
-      const departments = await getDepartments(facultyId)
+      const { count, rows } = await getDepartments(limit, offset, filter)
+
+      res.status(200).send({ count, departments: rows })
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async listByFaculty(req, res) {
+    try {
+      const { facultyId } = req.params
+
+      const departments = await getDepartmentsByFaculty(facultyId)
 
       res.status(200).send(departments)
     } catch (error) {

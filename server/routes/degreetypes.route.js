@@ -1,27 +1,15 @@
 const express = require('express')
 const router = express.Router()
 
-const { departments } = require('../controllers')
+const { degreeTypes } = require('../controllers')
 
 const { isAuthenticated, checkAccess } = require('../middleware')
 
 router.get(
   '/list',
   isAuthenticated,
-  checkAccess('list', 'Department'),
-  departments.list
-)
-router.get(
-  '/listByFaculty/:facultyId',
-  isAuthenticated,
-  checkAccess('listByFaculty', 'Department'),
-  departments.listByFaculty
-)
-router.get(
-  '/get/:id',
-  isAuthenticated,
-  checkAccess('get', 'Department'),
-  departments.get
+  checkAccess('list', 'DegreeType'),
+  degreeTypes.list
 )
 // router.get(
 //   '/delete/:id',

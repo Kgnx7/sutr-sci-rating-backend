@@ -57,7 +57,7 @@ module.exports = async (key, value) => {
     })
 
     academicDegrees = await AcademicDegree.findAll({
-      whwre: {
+      where: {
         userId: user.id,
       },
       include: [
