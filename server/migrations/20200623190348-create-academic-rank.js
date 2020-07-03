@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'academicranks',
+      'AcademicRanks',
       {
         id: {
           allowNull: false,
@@ -35,6 +35,6 @@ module.exports = {
     )
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('academicranks')
+    return queryInterface.dropTable('AcademicRanks')
   },
 }

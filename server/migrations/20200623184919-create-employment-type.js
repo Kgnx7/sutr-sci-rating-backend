@@ -2,7 +2,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'employmenttypes',
+      'EmploymentTypes',
       {
         id: {
           allowNull: false,
@@ -40,6 +40,6 @@ module.exports = {
     )
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('employmenttypes')
+    return queryInterface.dropTable('EmploymentTypes')
   },
 }

@@ -5,13 +5,13 @@ module.exports = {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
         queryInterface.addColumn(
-          'faculties',
+          'Faculties',
           'deanId',
           {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: 'users',
+              model: 'Users',
               key: 'id',
               as: 'dean',
             },
@@ -19,13 +19,13 @@ module.exports = {
           { transaction: t }
         ),
         queryInterface.addColumn(
-          'faculties',
+          'Faculties',
           'deanAssistantId',
           {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-              model: 'users',
+              model: 'Users',
               key: 'id',
               as: 'deanAssistant',
             },
@@ -39,8 +39,8 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
-        queryInterface.removeColumn('faculties', 'deanId', { transaction: t }),
-        queryInterface.removeColumn('faculties', 'deanAssistantId', {
+        queryInterface.removeColumn('Faculties', 'deanId', { transaction: t }),
+        queryInterface.removeColumn('Faculties', 'deanAssistantId', {
           transaction: t,
         }),
       ])
