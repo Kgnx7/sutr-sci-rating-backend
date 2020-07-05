@@ -1,5 +1,4 @@
-const { User, UserStatus, Position } = require('../models')
-const { sequelize, Sequelize } = require('../models')
+const { User, UserStatus, Position, Sequelize } = require('../models')
 const Op = Sequelize.Op
 const castUserInfo = require('../utils/castUserInfo')
 const getUser = require('../utils/queries/getUser')

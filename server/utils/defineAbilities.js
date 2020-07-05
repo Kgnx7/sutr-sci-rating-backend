@@ -36,6 +36,7 @@ module.exports = async (user) => {
       can('create', 'AcademicDegree')
       can('delete', 'AcademicDegree')
 
+      can('list', 'RiaType')
       break
     case groups.ResearchDepartment:
       can('list', 'User')
