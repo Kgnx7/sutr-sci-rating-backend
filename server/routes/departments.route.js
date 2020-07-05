@@ -23,23 +23,23 @@ router.get(
   checkAccess('get', 'Department'),
   departments.get
 )
-// router.get(
-//   '/delete/:id',
-//   isAuthenticated,
-//   checkAccess('delete', 'departments'),
-//   departments.delete
-// )
-// router.post(
-//   '/edit/:id',
-//   isAuthenticated,
-//   checkAccess('edit', 'departments'),
-//   departments.edit
-// )
-// router.post(
-//   '/create',
-//   isAuthenticated,
-//   checkAccess('create', 'departments'),
-//   departments.create
-// )
+router.get(
+  '/delete/:id',
+  isAuthenticated,
+  checkAccess('delete', 'Department'),
+  departments.delete
+)
+router.post(
+  '/edit/:id',
+  isAuthenticated,
+  checkAccess('edit', 'Department'),
+  departments.edit
+)
+router.post(
+  '/create',
+  isAuthenticated,
+  checkAccess('create', 'Department'),
+  departments.create
+)
 
 module.exports = router

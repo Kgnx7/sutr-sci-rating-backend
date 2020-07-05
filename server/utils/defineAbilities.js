@@ -18,10 +18,16 @@ module.exports = async (user) => {
 
       can('list', 'Faculty')
       can('get', 'Faculty')
+      can('create', 'Faculty')
+      can('edit', 'Faculty')
+      can('delete', 'Faculty')
 
       can('list', 'Department')
       can('listByFaculty', 'Department')
       can('get', 'Department')
+      can('create', 'Department')
+      can('edit', 'Department')
+      can('delete', 'Department')
 
       can('list', 'AccessGroup')
 
@@ -40,12 +46,18 @@ module.exports = async (user) => {
       can('delete', 'User')
       can('create', 'UserStatus')
 
-      can('list', 'faculties')
+      can('list', 'Faculty')
       can('get', 'Faculty')
+      can('create', 'Faculty')
+      can('edit', 'Faculty')
+      can('delete', 'Faculty')
 
       can('list', 'Department')
       can('listByFaculty', 'Department')
       can('get', 'Department')
+      can('create', 'Department')
+      can('edit', 'Department')
+      can('delete', 'Department')
 
       can('list', 'DegreeType')
 
@@ -57,7 +69,7 @@ module.exports = async (user) => {
       can('listByDepartment', 'User')
       can('get', 'User')
 
-      can('list', 'faculties')
+      can('list', 'Faculty')
       can('get', 'Faculty')
 
       can('list', 'Department')
@@ -66,8 +78,6 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
-      can('create', 'AcademicDegree')
-      can('delete', 'AcademicDegree')
       break
     case groups.Faculty:
       can('list', 'User')
@@ -83,8 +93,6 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
-      can('create', 'AcademicDegree')
-      can('delete', 'AcademicDegree')
       break
     case groups.Department:
       can('list', 'User')
@@ -100,8 +108,6 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
-      can('create', 'AcademicDegree')
-      can('delete', 'AcademicDegree')
       break
     case groups.Worker:
       can('get', 'User')
@@ -117,8 +123,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
-      can('create', 'AcademicDegree')
-      can('delete', 'AcademicDegree')
+      break
+    default:
       break
   }
 

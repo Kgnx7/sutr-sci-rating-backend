@@ -17,8 +17,23 @@ router.get(
   checkAccess('get', 'Faculty'),
   faculties.get
 )
-// router.get('/delete/:id', isAuthenticated, checkAccess('delete', 'faculties'), faculties.delete)
-// router.post('/edit/:id', isAuthenticated, checkAccess('edit', 'faculties'), faculties.edit)
-// router.post('/create', isAuthenticated, checkAccess('create', 'faculties'), faculties.create)
+router.post(
+  '/edit/:id',
+  isAuthenticated,
+  checkAccess('edit', 'Faculty'),
+  faculties.edit
+)
+router.post(
+  '/create',
+  isAuthenticated,
+  checkAccess('create', 'Faculty'),
+  faculties.create
+)
+router.get(
+  '/delete/:id',
+  isAuthenticated,
+  checkAccess('delete', 'Faculty'),
+  faculties.delete
+)
 
 module.exports = router
