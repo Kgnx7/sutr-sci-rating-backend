@@ -31,11 +31,18 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'riaStatusId',
     })
 
-    Ria.belongsToMany(models.User, {
+    Ria.belongsToMany(models.RiaSpecification, {
       as: 'users',
       through: 'RiaAuthors',
       foreignKey: 'riaId',
       otherKey: 'userId',
+    })
+
+    Ria.belongsToMany(models.User, {
+      as: 'properties',
+      through: 'RiaProperties',
+      foreignKey: 'riaId',
+      otherKey: 'propertyId',
     })
   }
   return Ria

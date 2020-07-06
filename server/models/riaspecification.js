@@ -23,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'propertyId',
       otherKey: 'typeId',
     })
+
+    RiaSpecification.belongsToMany(models.Ria, {
+      as: 'ria',
+      through: 'RiaProperties',
+      foreignKey: 'propertyId',
+      otherKey: 'riaId',
+    })
   }
   return RiaSpecification
 }
