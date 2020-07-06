@@ -44,6 +44,20 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'riaId',
       otherKey: 'propertyId',
     })
+
+    Ria.belongsToMany(models.RsState, {
+      as: 'states',
+      through: 'RiaStates',
+      foreignKey: 'riaId',
+      otherKey: 'stateId',
+    })
+
+    Ria.belongsToMany(models.FundSource, {
+      as: 'fundSources',
+      through: 'RiaFundSources',
+      foreignKey: 'riaId',
+      otherKey: 'fundSourceId',
+    })
   }
   return Ria
 }
