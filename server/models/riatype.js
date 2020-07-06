@@ -23,10 +23,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   )
+
   RiaType.associate = function (models) {
     RiaType.belongsTo(models.RiaGeneralType, {
       as: 'generalType',
       foreignKey: 'generalTypeId',
+    })
+
+    RiaType.belongsToMany(models.RiaSpecification, {
+      as: 'typeProperties',
+      through: 'RiaTypeProperties',
+      foreignKey: 'typeId',
+      otherKey: 'propertyId',
     })
   }
   return RiaType

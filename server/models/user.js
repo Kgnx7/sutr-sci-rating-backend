@@ -83,24 +83,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'academicRank',
       foreignKey: 'academicRankId',
     })
-    // User.belongsToMany(models.Position, {
-    //   as: 'position',
-    //   through: 'userstatuses',
-    //   foreignKey: 'userId',
-    //   otherKey: 'positionId',
-    // })
-    // User.belongsToMany(models.Department, {
-    //   as: 'department',
-    //   through: 'userstatuses',
-    //   foreignKey: 'userId',
-    //   otherKey: 'departmentId',
-    // })
-    // User.belongsToMany(models.EmploymentType, {
-    //   as: 'employmentType',
-    //   through: 'userstatuses',
-    //   foreignKey: 'userId',
-    //   otherKey: 'employmentTypeId',
-    // })
+   
   }
   return User
 }

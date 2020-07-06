@@ -15,8 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   )
+
   RiaSpecification.associate = function (models) {
-    // associations can be defined here
+    RiaSpecification.belongsToMany(models.RiaType, {
+      as: 'riaTypes',
+      through: 'RiaTypeProperties',
+      foreignKey: 'propertyId',
+      otherKey: 'typeId',
+    })
   }
   return RiaSpecification
 }
