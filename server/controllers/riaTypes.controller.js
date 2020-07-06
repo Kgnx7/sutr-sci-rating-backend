@@ -36,4 +36,44 @@ module.exports = {
       res.status(400).send({ message: error.message })
     }
   },
+
+  async create(req, res) {
+    try {
+      const riaType = await RiaType.create(req.body)
+
+      res.status(201).send(riaType)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async edit(req, res) {
+    try {
+      const { id } = req.params
+
+      await RiaType.update(req.body, {
+        where: { id },
+      })
+
+      const updatedRiaType = await RiaType.findByPk(id)
+
+      res.status(200).send(updatedRiaType)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const id = req.params.id
+
+      await RiaType.destroy({
+        where: { id },
+      })
+
+      res.status(200).send({ message: 'Запись успешно удалена' })
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
 }
