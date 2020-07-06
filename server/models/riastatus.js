@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-  const riaStatus = sequelize.define(
-    'riaStatus',
+  const RiaStatus = sequelize.define(
+    'RiaStatus',
     {
       title: {
         type: DataTypes.STRING,
@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   )
-  riaStatus.associate = function (models) {
+  RiaStatus.associate = function (models) {
     // associations can be defined here
   }
-  return riaStatus
+  return RiaStatus
 }

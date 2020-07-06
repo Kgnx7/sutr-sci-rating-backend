@@ -83,7 +83,13 @@ module.exports = (sequelize, DataTypes) => {
       as: 'academicRank',
       foreignKey: 'academicRankId',
     })
-   
+
+    User.belongsToMany(models.Ria, {
+      as: 'ria',
+      through: 'RiaAuthors',
+      foreignKey: 'userId',
+      otherKey: 'riaId',
+    })
   }
   return User
 }

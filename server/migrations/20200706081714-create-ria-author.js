@@ -1,17 +1,24 @@
 'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('RsTypes', {
-      id: {
+    return queryInterface.createTable('RiaAuthors', {
+      userId: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
+      riaId: {
+        allowNull: false,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      part: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      role: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       createdAt: {
         allowNull: false,
@@ -24,6 +31,6 @@ module.exports = {
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('RsTypes')
+    return queryInterface.dropTable('RiaAuthors')
   },
 }
