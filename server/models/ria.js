@@ -58,6 +58,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'riaId',
       otherKey: 'fundSourceId',
     })
+
+    Ria.belongsToMany(models.Document, {
+      as: 'documents',
+      through: 'RiaDocuments',
+      foreignKey: 'riaId',
+      otherKey: 'documentId',
+    })
   }
   return Ria
 }

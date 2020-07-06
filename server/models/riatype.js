@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      generalTypeId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
     {}
   )
@@ -31,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     })
 
     RiaType.belongsToMany(models.RiaSpecification, {
-      as: 'typeProperties',
+      as: 'specifications',
       through: 'RiaTypeProperties',
       foreignKey: 'typeId',
       otherKey: 'propertyId',

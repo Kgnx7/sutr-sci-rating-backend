@@ -11,14 +11,18 @@ router.get(
   checkAccess('list', 'RiaType'),
   riaTypes.list
 )
-
+router.get(
+  '/get/:id',
+  isAuthenticated,
+  checkAccess('get', 'RiaType'),
+  riaTypes.get
+)
 router.post(
   '/create',
   isAuthenticated,
   checkAccess('create', 'RiaType'),
   riaTypes.create
 )
-
 router.post(
   '/edit/:id',
   isAuthenticated,

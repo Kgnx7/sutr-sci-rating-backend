@@ -1,4 +1,10 @@
-const { RiaType, RiaGeneralType, Sequelize } = require('../models')
+const {
+  RiaType,
+  RiaGeneralType,
+  RiaSpecification,
+  Sequelize,
+} = require('../models')
+const castRiaTypeInfo = require('../utils/castRiaTypeInfo')
 const Op = Sequelize.Op
 
 module.exports = {
@@ -31,7 +37,35 @@ module.exports = {
         ],
       })
 
-      res.status(200).send({ count, riaTypes: rows })
+      const riaTypes = rows.map((row) => castRiaTypeInfo(row))
+
+      res.status(200).send({ count, riaTypes })
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async get(req, res) {
+    try {
+      const { id } = req.params
+
+      const riaType = await RiaType.findByPk(id, {
+        include: [
+          {
+            model: RiaGeneralType,
+            attributes: ['title', 'note'],
+            as: 'generalType',
+          },
+          {
+            model: RiaSpecification,
+            as: 'specifications',
+          },
+        ],
+      })
+
+      const riaTypeInfo = castRiaTypeInfo(riaType)
+
+      res.status(200).send(riaTypeInfo)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

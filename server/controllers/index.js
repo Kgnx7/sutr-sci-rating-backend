@@ -10,6 +10,6 @@ module.exports = {
   specialties: require('./specialties.controller'),
   degreeTypes: require('./degreeTypes.controller'),
   academicDegrees: require('./academicDegrees.controller'),
-  // riaGeneralTypes: require('./riaGeneralTypes.controller'),
+  riaGeneralTypes: require('./riaGeneralTypes.controller'),
   riaTypes: require('./riaTypes.controller'),
 }

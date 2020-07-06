@@ -4,7 +4,7 @@ const groups = require('./constants/accessGroups')
 
 module.exports = async (user) => {
   const accessGroup = await AccessGroup.findByPk(user.accessGroupId)
-  const { can, cannot, rules } = new AbilityBuilder(Ability)
+  const { can, rules } = new AbilityBuilder(Ability)
 
   switch (accessGroup.title) {
     case groups.Admin:
@@ -37,6 +37,10 @@ module.exports = async (user) => {
       can('delete', 'AcademicDegree')
 
       can('list', 'RiaType')
+      can('create', 'RiaType')
+      can('edit', 'RiaType')
+      can('delete', 'RiaType')
+      can('get', 'RiaType')
       break
     case groups.ResearchDepartment:
       can('list', 'User')
@@ -64,6 +68,12 @@ module.exports = async (user) => {
 
       can('create', 'AcademicDegree')
       can('delete', 'AcademicDegree')
+
+      can('list', 'RiaType')
+      can('create', 'RiaType')
+      can('edit', 'RiaType')
+      can('delete', 'RiaType')
+      can('get', 'RiaType')
       break
     case groups.University:
       can('list', 'User')
@@ -79,6 +89,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaType')
+      can('get', 'RiaType')
       break
     case groups.Faculty:
       can('list', 'User')
@@ -94,6 +106,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaType')
+      can('get', 'RiaType')
       break
     case groups.Department:
       can('list', 'User')
@@ -109,6 +123,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaType')
+      can('get', 'RiaType')
       break
     case groups.Worker:
       can('get', 'User')
@@ -124,6 +140,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaType')
+      can('get', 'RiaType')
       break
     default:
       break
