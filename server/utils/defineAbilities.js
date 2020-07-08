@@ -36,11 +36,21 @@ module.exports = async (user) => {
       can('create', 'AcademicDegree')
       can('delete', 'AcademicDegree')
 
+      can('list', 'RiaSpecification')
+      can('create', 'RiaSpecification')
+      can('delete', 'RiaSpecification')
+
       can('list', 'RiaType')
       can('create', 'RiaType')
       can('edit', 'RiaType')
       can('delete', 'RiaType')
       can('get', 'RiaType')
+
+      can('list', 'Ria')
+      can('create', 'Ria')
+      can('edit', 'Ria')
+      can('delete', 'Ria')
+      can('get', 'Ria')
       break
     case groups.ResearchDepartment:
       can('list', 'User')
@@ -69,11 +79,21 @@ module.exports = async (user) => {
       can('create', 'AcademicDegree')
       can('delete', 'AcademicDegree')
 
+      can('list', 'RiaSpecification')
+      can('create', 'RiaSpecification')
+      can('delete', 'RiaSpecification')
+
       can('list', 'RiaType')
       can('create', 'RiaType')
       can('edit', 'RiaType')
       can('delete', 'RiaType')
       can('get', 'RiaType')
+
+      can('list', 'Ria')
+      can('create', 'Ria')
+      can('edit', 'Ria')
+      can('delete', 'Ria')
+      can('get', 'Ria')
       break
     case groups.University:
       can('list', 'User')
@@ -88,6 +108,8 @@ module.exports = async (user) => {
       can('get', 'Department')
 
       can('list', 'DegreeType')
+
+      can('list', 'RiaSpecification')
 
       can('list', 'RiaType')
       can('get', 'RiaType')
@@ -106,6 +128,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaSpecification')
+
       can('list', 'RiaType')
       can('get', 'RiaType')
       break
@@ -123,6 +147,8 @@ module.exports = async (user) => {
 
       can('list', 'DegreeType')
 
+      can('list', 'RiaSpecification')
+
       can('list', 'RiaType')
       can('get', 'RiaType')
       break
@@ -139,6 +165,8 @@ module.exports = async (user) => {
       can('get', 'Department')
 
       can('list', 'DegreeType')
+
+      can('list', 'RiaSpecification')
 
       can('list', 'RiaType')
       can('get', 'RiaType')

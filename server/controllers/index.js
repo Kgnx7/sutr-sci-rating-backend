@@ -12,4 +12,6 @@ module.exports = {
   academicDegrees: require('./academicDegrees.controller'),
   riaGeneralTypes: require('./riaGeneralTypes.controller'),
   riaTypes: require('./riaTypes.controller'),
+  riaSpecifications: require('./riaSpecifications.controller'),
+  ria: require('./ria.controller'),
 }

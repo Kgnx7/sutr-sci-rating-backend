@@ -18,11 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: true,
       },
       generalTypeId: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {}

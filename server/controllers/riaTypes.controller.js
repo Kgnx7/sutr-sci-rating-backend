@@ -1,6 +1,7 @@
 const {
   RiaType,
   RiaGeneralType,
+  RiaTypeProperty,
   RiaSpecification,
   Sequelize,
 } = require('../models')
@@ -76,6 +77,16 @@ module.exports = {
       const riaType = await RiaType.create(req.body)
 
       res.status(201).send(riaType)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async addProperty(req, res) {
+    try {
+      const property = await RiaTypeProperty.create(req.body)
+
+      res.status(201).send(property)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }

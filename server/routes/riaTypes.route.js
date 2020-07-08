@@ -24,6 +24,12 @@ router.post(
   riaTypes.create
 )
 router.post(
+  '/addProperty',
+  isAuthenticated,
+  checkAccess('edit', 'RiaType'),
+  riaTypes.addProperty
+)
+router.post(
   '/edit/:id',
   isAuthenticated,
   checkAccess('edit', 'RiaType'),

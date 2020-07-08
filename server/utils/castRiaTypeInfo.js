@@ -12,7 +12,6 @@ module.exports = function castRiaTypeInfo(riaType) {
       generalType: riaType.generalType && riaType.generalType.title,
 
       specifications: riaType.specifications || [],
-      // spec: riaType.generalType && riaType.generalType.title,
     }
 
     return finalUser
