@@ -1,6 +1,7 @@
 module.exports = function castRiaInfo(ria) {
   try {
     const output = {
+      id: ria.id,
       title: ria.title,
       authors: ria.authors,
       description: ria.description,
@@ -17,6 +18,10 @@ module.exports = function castRiaInfo(ria) {
           .trim(),
         part: user.RiaAuthors.part,
         role: user.RiaAuthors.role,
+      })),
+      properties: ria.properties.map((property) => ({
+        title: property.title,
+        value: property.RiaProperties.value,
       })),
       states: [],
       fundSources: [],

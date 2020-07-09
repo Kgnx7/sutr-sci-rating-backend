@@ -8,6 +8,7 @@ const {
   Document,
   FundSource,
   RiaSpecification,
+  RiaProperty,
   RiaAuthor,
   Sequelize,
   RiaState,
@@ -125,6 +126,14 @@ module.exports = {
             attributes: ['title'],
             as: 'fundSources',
           },
+          {
+            model: RiaSpecification,
+            attributes: ['title'],
+            through: {
+              attributes: ['value'],
+            },
+            as: 'properties',
+          },
         ],
       })
 
@@ -150,13 +159,17 @@ module.exports = {
         role: authorMeta.role,
       })
 
-      // const riaState = await RiaState.create({
-      //   riaId: ria.id,
-      //   stateId: currentRiaState,
-      //   userId: authorId,
-      // })
-
       res.status(201).send(ria)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
+
+  async addProperty(req, res) {
+    try {
+      const riaProperty = await RiaProperty.create(req.body)
+
+      res.status(201).send(riaProperty)
     } catch (error) {
       res.status(400).send({ message: error.message })
     }
