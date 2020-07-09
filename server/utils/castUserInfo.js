@@ -28,6 +28,7 @@ module.exports = function castUserInfo(user) {
           specialty: state.specialty.title,
           degreeType: state.degreeType.title,
         })),
+      ria: user.ria,
     }
 
     return finalUser

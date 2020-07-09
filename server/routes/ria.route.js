@@ -5,24 +5,14 @@ const { ria } = require('../controllers')
 
 const { isAuthenticated, checkAccess } = require('../middleware')
 
-router.get(
-  '/list',
+router.get('/list', isAuthenticated, checkAccess('list', 'Ria'), ria.list)
+router.get('/get/:id', isAuthenticated, checkAccess('get', 'Ria'), ria.get)
+router.post(
+  '/create',
   isAuthenticated,
-  checkAccess('list', 'Ria'),
-  ria.list
+  checkAccess('create', 'Ria'),
+  ria.create
 )
-// router.get(
-//   '/get/:id',
-//   isAuthenticated,
-//   checkAccess('get', 'Ria'),
-//   ria.get
-// )
-// router.post(
-//   '/create',
-//   isAuthenticated,
-//   checkAccess('create', 'Ria'),
-//   ria.create
-// )
 // router.post(
 //   '/edit/:id',
 //   isAuthenticated,

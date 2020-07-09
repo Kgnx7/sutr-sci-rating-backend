@@ -12,7 +12,7 @@ const {
   Sequelize,
   RiaState,
 } = require('../models')
-// const castRiaTypeInfo = require('../utils/castRiaTypeInfo')
+const castRiaInfo = require('../utils/castRiaInfo')
 const Op = Sequelize.Op
 
 module.exports = {
@@ -86,48 +86,69 @@ module.exports = {
     }
   },
 
-  // async get(req, res) {
-  //   try {
-  //     const { id } = req.params
+  async get(req, res) {
+    try {
+      const { id } = req.params
 
-  //     const riaType = await Ria.findByPk(id, {
-  //       include: [
-  //         {
-  //           model: RiaGeneralType,
-  //           attributes: ['title', 'note'],
-  //           as: 'generalType',
-  //         },
-  //         {
-  //           model: RiaSpecification,
-  //           as: 'specifications',
-  //         },
-  //       ],
-  //     })
+      const ria = await Ria.findByPk(id, {
+        plain: true,
+        include: [
+          {
+            model: RiaType,
+            attributes: ['title'],
+            as: 'riaType',
+          },
+          {
+            model: RsType,
+            attributes: ['title'],
+            as: 'rsType',
+          },
+          {
+            model: RiaStatus,
+            attributes: ['title'],
+            as: 'riaStatus',
+          },
+          {
+            model: User,
+            as: 'users',
+            through: {
+              attributes: ['part', 'role'],
+            },
+          },
+          {
+            model: RsState,
+            attributes: ['title'],
+            as: 'states',
+          },
+          {
+            model: FundSource,
+            attributes: ['title'],
+            as: 'fundSources',
+          },
+        ],
+      })
 
-  //     const riaTypeInfo = castRiaTypeInfo(riaType)
+      const riaInfo = castRiaInfo(ria.toJSON())
 
-  //     res.status(200).send(riaTypeInfo)
-  //   } catch (error) {
-  //     res.status(400).send({ message: error.message })
-  //   }
-  // },
+      res.status(200).send(riaInfo)
+    } catch (error) {
+      res.status(400).send({ message: error.message })
+    }
+  },
 
   async create(req, res) {
     try {
-      const {
-        riaMeta,
-        authorId,
-        properties,
-        currentRiaState,
-        documents,
-      } = req.body
+      const user = req.user
+      const { riaMeta, authorMeta } = req.body
 
       const ria = await Ria.create(riaMeta)
 
-      // const riaAuthor = await RiaAuthor.create({
-      //   userId: authorId,
-      //   riaId: ria.id,
-      // })
+      const riaAuthor = await RiaAuthor.create({
+        userId: user.id,
+        riaId: ria.id,
+        part: authorMeta.part,
+        role: authorMeta.role,
+      })
 
       // const riaState = await RiaState.create({
       //   riaId: ria.id,

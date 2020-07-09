@@ -8,6 +8,7 @@ const {
   UserStatus,
   Specialty,
   DegreeType,
+  Ria,
   AcademicDegree,
 } = require('../../models')
 
@@ -24,6 +25,11 @@ module.exports = async (key, value) => {
         model: AcademicRank,
         attributes: ['title'],
         as: 'academicRank',
+      },
+      {
+        model: Ria,
+        // attributes: ['title'],
+        as: 'ria',
       },
     ],
   })

@@ -12,6 +12,8 @@ module.exports = (app) => {
   app.use('/api/academicDegrees', require('./academicDegrees.route'))
   app.use('/api/riaGeneralTypes', require('./riaGeneralTypes.route'))
   app.use('/api/riaTypes', require('./riaTypes.route'))
+  app.use('/api/riaStatuses', require('./riaStatuses.route'))
+  app.use('/api/rsTypes', require('./rsTypes.route'))
   app.use('/api/riaSpecifications', require('./riaSpecification.route'))
   app.use('/api/ria', require('./ria.route'))
 }

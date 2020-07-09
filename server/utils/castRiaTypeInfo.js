@@ -1,6 +1,6 @@
 module.exports = function castRiaTypeInfo(riaType) {
   try {
-    const finalUser = {
+    const output = {
       id: riaType.id,
       title: riaType.title,
       unit: riaType.unit,
@@ -14,7 +14,7 @@ module.exports = function castRiaTypeInfo(riaType) {
       specifications: riaType.specifications || [],
     }
 
-    return finalUser
+    return output
   } catch (error) {
     throw error
   }
