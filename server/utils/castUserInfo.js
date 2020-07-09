@@ -24,9 +24,9 @@ module.exports = function castUserInfo(user) {
         })),
       academicDegrees:
         user.academicDegrees &&
-        user.academicDegrees.map((state) => ({
-          specialty: state.specialty.title,
-          degreeType: state.degreeType.title,
+        user.academicDegrees.map((degree) => ({
+          specialty: degree.specialty && degree.specialty.title,
+          degreeType: degree.degreeType && degree.degreeType.title,
         })),
       ria: user.ria,
     }
