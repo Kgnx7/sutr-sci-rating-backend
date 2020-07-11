@@ -41,5 +41,11 @@ router.post(
   checkAccess('create', 'Department'),
   departments.create
 )
+router.get(
+  '/get/:id/getSciRating',
+  isAuthenticated,
+  checkAccess('get', 'Department'),
+  departments.getRating
+)
 
 module.exports = router

@@ -15,7 +15,7 @@ module.exports = function castUserInfo(user) {
       phone: user.phone,
       email: user.email,
       states:
-        user.states &&
+        Array.isArray(user.states) &&
         user.states.map((state) => ({
           position: state.position.title,
           department: state.department.title,
@@ -23,10 +23,10 @@ module.exports = function castUserInfo(user) {
           salaryRate: state.salaryRate,
         })),
       academicDegrees:
-        user.academicDegrees &&
+        Array.isArray(user.academicDegrees) &&
         user.academicDegrees.map((degree) => ({
-          specialty: degree.specialty && degree.specialty.title,
-          degreeType: degree.degreeType && degree.degreeType.title,
+          specialty: degree.specialty.title,
+          degreeType: degree.degreeType.title,
         })),
       ria: user.ria,
     }

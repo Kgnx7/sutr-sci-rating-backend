@@ -17,6 +17,12 @@ router.get(
   checkAccess('get', 'Faculty'),
   faculties.get
 )
+router.get(
+  '/get/:id/getSciRating',
+  isAuthenticated,
+  checkAccess('get', 'Faculty'),
+  faculties.getRating
+)
 router.post(
   '/edit/:id',
   isAuthenticated,

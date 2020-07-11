@@ -52,8 +52,8 @@ module.exports = async (user) => {
       can('delete', 'Ria')
       can('get', 'Ria')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     case groups.ResearchDepartment:
       can('list', 'User')
@@ -98,8 +98,8 @@ module.exports = async (user) => {
       can('delete', 'Ria')
       can('get', 'Ria')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     case groups.University:
       can('list', 'User')
@@ -120,8 +120,8 @@ module.exports = async (user) => {
       can('list', 'RiaType')
       can('get', 'RiaType')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     case groups.Faculty:
       can('list', 'User')
@@ -142,8 +142,14 @@ module.exports = async (user) => {
       can('list', 'RiaType')
       can('get', 'RiaType')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'Ria')
+      can('create', 'Ria')
+      can('edit', 'Ria')
+      can('delete', 'Ria')
+      can('get', 'Ria')
+
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     case groups.Department:
       can('list', 'User')
@@ -164,8 +170,14 @@ module.exports = async (user) => {
       can('list', 'RiaType')
       can('get', 'RiaType')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'Ria')
+      can('create', 'Ria')
+      can('edit', 'Ria')
+      can('delete', 'Ria')
+      can('get', 'Ria')
+
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     case groups.Worker:
       can('get', 'User')
@@ -186,8 +198,14 @@ module.exports = async (user) => {
       can('list', 'RiaType')
       can('get', 'RiaType')
 
-      can('list', 'RsTypes')
-      can('list', 'RiaStatuses')
+      can('list', 'Ria')
+      can('create', 'Ria')
+      can('edit', 'Ria')
+      can('delete', 'Ria')
+      can('get', 'Ria')
+
+      can('list', 'RsType')
+      can('list', 'RiaStatus')
       break
     default:
       break
