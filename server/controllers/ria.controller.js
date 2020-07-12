@@ -147,13 +147,12 @@ module.exports = {
 
   async create(req, res) {
     try {
-      const user = req.user
       const { riaMeta, authorMeta } = req.body
 
       const ria = await Ria.create(riaMeta)
 
       const riaAuthor = await RiaAuthor.create({
-        userId: user.id,
+        userId: authorMeta.userId,
         riaId: ria.id,
         part: authorMeta.part,
         role: authorMeta.role,
